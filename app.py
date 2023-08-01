@@ -122,7 +122,7 @@ if query:
     context_1 = docsearch.similarity_search(query, k=5)
 
     if query.lower() == "what is the victim's name?":
-            prompt_1 = f'''Perform Name Enitity Recognition to identify the Customer name as accurately as possible, given the context. The Customer can also be referenced as the Victim or the person with whom the Fraud has taken place.\n\n\
+        prompt_1 = f'''Perform Name Enitity Recognition to identify the Customer name as accurately as possible, given the context. The Customer can also be referenced as the Victim or the person with whom the Fraud has taken place.\n\n\
                       Question: {query}\n\
                       Context: {context_1}\n\
                       Response: '''
