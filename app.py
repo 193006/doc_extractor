@@ -93,8 +93,35 @@ if st.button("Submit"):
         queries ="Any fraud encountered in the passed document?\
         if any."
         contexts = docsearch.similarity_search(queries, k=1)
+        prompts = f"Give concise answer to the below questions as truthfully as possible as per given context only,\n\n\
+              Context: {contexts}\n\
+              Response (in readable bullet points): "
+              
+
+        response = usellm(prompts)
+
+#st.write("Uploaded File Contents:")
+if file is not None:
+    docs, docsearch = embedding_store(file)
+
+# Text Input
+st.subheader("Ask Questions")
+query = st.text_input('your queries will go here...')
+
+def LLM_Response():
+    llm_chain = LLMChain(prompt=prompt, llm=llm)
+    response = llm_chain.run({"query":query, "context":context})
+    return response
+
+
         
-        if query.lower() == "what is the victim's name?":
+if query:
+    # Text input handling logic
+    #st.write("Text Input:")
+    #st.write(text_input)
+    context_1 = docsearch.similarity_search(query, k=5)
+
+    if query.lower() == "what is the victim's name?":
             prompt_1 = f'''Perform Name Enitity Recognition to identify the Customer name as accurately as possible, given the context. The Customer can also be referenced as the Victim or the person with whom the Fraud has taken place.\n\n\
                       Question: {query}\n\
                       Context: {context_1}\n\
@@ -177,31 +204,16 @@ if st.button("Submit"):
                       Context: {context_1}\n\                      
                       Response: '''
 
-            
-              
 
-        response = usellm(prompt_1)
-
-if file is not None:
-    docs, docsearch = embedding_store(file)
-
-st.subheader("Ask Questions")
-query = st.text_input('your queries will go here...')
-
-def LLM_Response():
-    llm_chain = LLMChain(prompt=prompt, llm=llm)
-    response = llm_chain.run({"query":query, "context":context})
-    return response
-
-
-        
-if query:
-    context = docsearch.similarity_search(query, k=5)
-    prompt = f"Act as a financial analyst and give concise answer to below Question as truthfully as possible, with given Context\n\n\
-              Question: {query}\n\
-              Context: {context}\n\
-              Response: "
-
-    response = usellm(prompt) #LLM_Response()
+    #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
+    response = usellm(prompt_1) #LLM_Response()
     st.write(response)
-
+    # language = 'en'
+    # Create a gTTS object
+    # tts = gTTS(text=response, lang=language)
+    
+    # Save the audio file
+    # rand = random.randint(1, 10000)*random.randint(10001,20000)
+    # audio_file = f'output{rand}.mp3'
+    # tts.save(audio_file)
+    # playsound(audio_file)
