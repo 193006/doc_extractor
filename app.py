@@ -34,6 +34,14 @@ from usellm import Message, Options, UseLLM
 st.title("Suspicious Activity Reporting")
 st.subheader('Evidence Processor')
 
+# Add custom CSS to hide the GitHub icon
+hide_github_icon = """
+    #GithubIcon {
+      visibility: hidden;
+    }
+"""
+st.markdown(hide_github_icon, unsafe_allow_html=True)
+
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
 
 @st.cache_data
