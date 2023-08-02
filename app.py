@@ -237,10 +237,12 @@ st.markdown(
     , unsafe_allow_html=True)
 st.markdown('<div class="footer"><p></p></div>', unsafe_allow_html=True)
 
-# Github Icon
-hide_github_icon = """
+st.markdown(
+    """
+    <style>
     #GithubIcon {
       visibility: hidden;
     }
-"""
-st.markdown(hide_github_icon, unsafe_allow_html=True)
+    </style>
+    """,unsafe_allow_html=True)
+st.markdown('<div id="GithubIcon"><p></p></div>', unsafe_allow_html=True)
