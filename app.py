@@ -94,6 +94,17 @@ if st.button("Submit"):
         if any."
         contexts = docsearch.similarity_search(queries, k=1)
         prompts = f"Give concise answer to the below questions as truthfully as possible as per given context only,\n\n\
+                1. What is the Victim's Name?
+                2. Has any suspect been reported?
+                3. List the Merchant name
+                4. How was the bank notified?
+                5. When was the bank notified?
+                6. What is the Fraud Type?
+                7. When did the fraud occur?
+                8. Was the disputed amount greater than 5000 USD?
+                9. What type of cards are involved?
+                10. Was the police report filed?
+                11. Based on the evidence is this a suspicious activity
               Context: {contexts}\n\
               Response (in readable bullet points): "
               
