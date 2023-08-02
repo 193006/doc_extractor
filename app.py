@@ -34,18 +34,6 @@ from usellm import Message, Options, UseLLM
 st.title("Suspicious Activity Reporting")
 st.subheader('Evidence Processor')
 
-st.markdown(
-    """
-    <style>
-    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob,
-    .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137,
-    .viewerBadge_text__1JaDK {
-        display: none;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
 
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
 
@@ -235,12 +223,27 @@ if query:
     #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
     response = usellm(prompt_1) #LLM_Response()
     st.write(response)
-    # language = 'en'
-    # Create a gTTS object
-    # tts = gTTS(text=response, lang=language)
-    
-    # Save the audio file
-    # rand = random.randint(1, 10000)*random.randint(10001,20000)
-    # audio_file = f'output{rand}.mp3'
-    # tts.save(audio_file)
-    # playsound(audio_file)
+
+    st.markdown(
+        """
+        <style>
+        .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob,
+        .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137,
+        .viewerBadge_text__1JaDK {
+            display: none;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+# Footer
+    st.markdown(
+        """
+        <style>
+          # MainMenu {visibility: hidden;}
+          footer {visibility: hidden;}
+        </style>
+        """
+        , unsafe_allow_html=True)
+    st.markdown('<div class="footer"><p></p></div>', unsafe_allow_html=True)
