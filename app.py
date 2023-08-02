@@ -90,10 +90,10 @@ if st.button("Submit"):
         # File handling logic
         st.write("File Uploaded...")
         _, docsearch = embedding_store(file)
-        queries =""Please provide the following information regarding the fraud case: Victim's Name,Existence of any reported suspect\n
+        queries ="""Please provide the following information regarding the fraud case: Victim's Name,Existence of any reported suspect\n
         List of Merchant names, How the bank was notified, Date of bank notification, Type of Fraud, Date of the fraud occurrence\n
         Whether the disputed amount exceeded 5000 USD, Types of cards involved, Whether a police report was filed\n
-        Assessment of suspicious activity based on the evidence, if any""
+        Assessment of suspicious activity based on the evidence, if any"""
         contexts = docsearch.similarity_search(queries, k=1) 
         prompts = f" Give concise answer to the below questions as truthfully as possible as per given context only,\n\n\
                 1. What is the Victim's Name?\n\
