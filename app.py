@@ -41,7 +41,7 @@ def usellm(prompt):
 
     service = UseLLM(service_url="https://usellm.org/api/llm")
     messages = [
-      Message(role="system", content="You are a fraud analyst"),
+      Message(role="system", content="You are a fraud analyst, who is an expert at finding out suspicious activities"),
       Message(role="user", content=f"{prompt}"),
       ]
     options = Options(messages=messages)
@@ -101,17 +101,12 @@ if st.button("Submit"):
                 3. List the Merchant name\n\
                 4. How was the bank notified?\n\
                 5. When was the bank notified?\n\
-                6. What is the Fraud Type?\n\
-                7. When did the fraud occur?\n\
-                8. Was the disputed amount greater than 5000 USD?\n\
-                9. What type of cards are involved?\n\
-                10. Was the police report filed?\n\
-                11. Based on the evidence is this a suspicious activity\n\
               Context: {contexts}\n\
               Response (in readable bullet points): "
               
 
         response = usellm(prompts)
+        st.write(response)
 
 #st.write("Uploaded File Contents:")
 if file is not None:
