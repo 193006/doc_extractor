@@ -101,6 +101,12 @@ if st.button("Submit"):
                 3. List the Merchant name\n\
                 4. How was the bank notified?\n\
                 5. When was the bank notified?\n\
+                6. What is the Fraud Type?\n\
+                7. When did the fraud occur?\n\
+                8. Was the disputed amount greater than 5000 USD?\n\
+                9. What type of cards are involved?\n\
+                10. Was the police report filed?\n\
+                11. Based on the evidence is this a suspicious activity?\n\
               Context: {contexts}\n\
               Response (in readable bullet points): "
               
