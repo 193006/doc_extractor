@@ -13,7 +13,8 @@ from PyPDF2 import PdfReader
 from utils import text_to_docs
 from langchain import PromptTemplate, LLMChain
 from langchain.chat_models import ChatOpenAI
-from langchain.memory import ConversationSummaryBufferMemory
+from langchain.chains import ConversationChain
+from langchain.memory import ConversationBufferMemory
 #import os
 #from io import StringIO
 #from langchain.embeddings.openai import OpenAIEmbeddings
