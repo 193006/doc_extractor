@@ -187,10 +187,11 @@ if selected_option == "Case 1":
             # Extract text from merged PDF
             final_pdf = PyPDF2.PdfReader(merged_pdf)
             all_text = []
+            global final_txt
             for page in final_pdf.pages:
                 text = page.extract_text()
                 all_text.append(text)
-            global final_txt = ' '.join(all_text)
+            final_txt = ' '.join(all_text)
             st.write(type(final_txt))
 
             # downloading content
