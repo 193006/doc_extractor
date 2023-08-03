@@ -237,7 +237,7 @@ def embedding_store(txt_doc):
 
 # Submit Button
 if st.button("Submit"):
-    if final_txt is not None:
+    if final_txt:
         # File handling logic
         st.write("File Uploaded...")
         _, docsearch = embedding_store(final_txt)
