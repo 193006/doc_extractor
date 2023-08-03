@@ -238,9 +238,9 @@ def embedding_store(txt_doc):
 
 # Submit Button
 if st.button("Submit"):
-    if len(final_txt) > 1:
+    if pdf_files is not None:
         # File handling logic
-        st.write("File Uploaded...")
+        # st.write("File Uploaded...")
         _, docsearch = embedding_store(final_txt)
         queries ="Please provide the following information regarding the fraud case based on the uploaded file: Victim's Name,Existence of any reported suspect\
         List of Merchant names, How the bank was notified, Date of bank notification, Type of Fraud, Date of the fraud occurrence\
@@ -269,7 +269,7 @@ if st.button("Submit"):
         st.write(memory.load_memory_variables({}))
 
 #st.write("Uploaded File Contents:")
-if len(final_txt) > 1:
+if pdf_files is not None:
     docs, docsearch = embedding_store(final_txt)
 
 # Text Input
