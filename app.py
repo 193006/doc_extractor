@@ -121,7 +121,7 @@ if st.button("Submit"):
               
 
         response = usellm(prompts)
-        memory.save_context({"input": f"{queries}}, {"output": f"{response}})
+        memory.save_context({"input": f"{queries}"}, {"output": f"{response}"})
         st.write(response)
         st.write(memory.load_memory_variables({})['history'].split(':')[1])
 
