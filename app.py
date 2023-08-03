@@ -271,6 +271,7 @@ if st.button("Submit"):
 #st.write("Uploaded File Contents:")
 if pdf_files is not None:
     docs, docsearch = embedding_store(final_txt)
+else: pass
 
 # Text Input
 st.subheader("Ask Questions")
