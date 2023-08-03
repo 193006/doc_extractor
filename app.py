@@ -232,7 +232,7 @@ text_splitter = RecursiveCharacterTextSplitter(
 def embedding_store(txt_doc):
     texts =  text_splitter.split_text(txt_doc)
     docs = text_to_docs(texts)
-    #st.write(texts)
+    st.write(texts)
     docsearch = FAISS.from_documents(docs, hf_embeddings)
     return docs, docsearch
 
