@@ -107,9 +107,23 @@ def embed(model_name):
 hf_embeddings = embed(model_name) 
 
 # File Upload
-file = st.file_uploader("Upload a file")
+files = st.file_uploader("Choose your files", type=["pdf"], accept_multiple_files=True)
 
-st.write(file)
+# Vizualising the files
+if files:
+    st.subheader("Uploaded Files:")
+    file_names = [file.name for file in files]
+    selected_file = st.selectbox("Select a file", file_names)
+
+    # Display selected PDF contents
+    if selected_file:
+        selected_pdf = [pdf for pdf in files if pdf.name == selected_file][0]
+        pdf_images = render_pdf_as_images(selected_pdf)
+        st.subheader(f"Contents of {selected_file}")
+        for img_bytes in pdf_images:
+            st.image(img_bytes, use_column_width=True)
+
+
 text_splitter = RecursiveCharacterTextSplitter(
     chunk_size = 1500,
     chunk_overlap  = 100,
