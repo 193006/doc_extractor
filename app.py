@@ -35,15 +35,7 @@ from usellm import Message, Options, UseLLM
 # Setting Env
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
-# Set Streamlit layout
-st.set_page_config(page_title="SAR Usecase ~~~~", layout="wide")
-# Adding titles
-st.title("Suspicious Activity Reporting")
-st.subheader('Evidence Processor')
-# Adding Sidebar
-st.sidebar.image('logo.png', width=100)
-# Navbar
-st.sidebar.title("Navigation")
+
 
 
 @st.cache_data
@@ -130,6 +122,15 @@ def embed(model_name):
 
 hf_embeddings = embed(model_name) 
 
+# Set Streamlit layout
+st.set_page_config(page_title="SAR Usecase ~~~~", layout="wide")
+# Adding titles
+st.title("Suspicious Activity Reporting")
+st.subheader('Evidence Processor')
+# Adding Sidebar
+st.sidebar.image('logo.png', width=100)
+# Navbar
+st.sidebar.title("Navigation")
 
 # Vizualising the files
 st.header("Welcome to the PDF Merger App")
@@ -166,7 +167,7 @@ if selected_option == "Case 1":
     # Merge PDFs extract text
     if st.button("Merge and Download"):
         if pdf_files:
-            merged_pdf = merge_and_extract_text(pdf_files)
+            merged_pdf = merge_pdfs(pdf_files)
             st.write(merged_pdf)
             """
             # downloading content
