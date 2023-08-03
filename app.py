@@ -8,6 +8,7 @@ from langchain.vectorstores import FAISS
 import openai
 import fitz
 from gtts import gTTS
+import PyPDF2
 from PyPDF2 import PdfReader
 from utils import text_to_docs
 from langchain import PromptTemplate, LLMChain
@@ -31,11 +32,46 @@ from usellm import Message, Options, UseLLM
 #import sounddevice as sd
 #from scipy.io.wavfile import write
 
-
+# Setting Env
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
+# Set Streamlit layout
+st.set_page_config(page_title="SAR Usecase ~~~~", layout="wide")
+# Adding titles
 st.title("Suspicious Activity Reporting")
 st.subheader('Evidence Processor')
+# Adding Sidebar
+st.sidebar.image('logo.png', width=100)
+@st.cache_data
+def merge_pdfs(pdf_list):
+    """
+    Helper function to merge PDFs
+    """
+    pdf_merger = PyPDF2.PdfMerger()
+    for pdf in pdf_list:
+        pdf_document = PyPDF2.PdfReader(pdf)
+        pdf_merger.append(pdf_document)
+    output_pdf = BytesIO()
+    pdf_merger.write(output_pdf)
+    pdf_merger.close()
+    return output_pdf
+
+@st.cache_data
+def render_pdf_as_images(pdf_file):
+    """
+    Helper function to render PDF pages as images
+    """
+    pdf_images = []
+    pdf_document = fitz.open(stream=pdf_file.read(), filetype="pdf")
+    for page_num in range(pdf_document.page_count):
+        page = pdf_document.load_page(page_num)
+        img = page.get_pixmap()
+        img_bytes = img.tobytes()
+        pdf_images.append(img_bytes)
+    pdf_document.close()
+    return pdf_images
+
+
 
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
 
@@ -61,7 +97,6 @@ def usellm(prompt):
 @st.cache_resource
 def embed(model_name):
     hf_embeddings = HuggingFaceEmbeddings(model_name=model_name)
-    
     return hf_embeddings
 
 
