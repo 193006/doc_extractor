@@ -228,8 +228,15 @@ text_splitter = RecursiveCharacterTextSplitter(
 
 
 @st.cache_data
-def embedding_store(txt_doc):
-    texts =  text_splitter.split_text(txt_doc)
+def embedding_store(pdf_files):
+    merged_pdf = merge_pdfs(pdf_files)
+    final_pdf = PyPDF2.PdfReader(merged_pdf)
+    all_text = []
+    for page in final_pdf.pages:
+        text = page.extract_text()
+        all_text.append(text)
+    final_txt = ' '.join(all_text)
+    texts =  text_splitter.split_text(final_txt)
     docs = text_to_docs(texts)
     st.write(texts)
     docsearch = FAISS.from_documents(docs, hf_embeddings)
@@ -239,15 +246,7 @@ def embedding_store(txt_doc):
 if st.button("Submit"):
     if pdf_files is not None:
         # File handling logic
-        merged_pdf = merge_pdfs(pdf_files)
-        final_pdf = PyPDF2.PdfReader(merged_pdf)
-        all_text = []
-        for page in final_pdf.pages:
-            text = page.extract_text()
-            all_text.append(text)
-        final_txt = ' '.join(all_text)
-        # st.write("File Uploaded...")
-        _, docsearch = embedding_store(final_txt)
+        _, docsearch = embedding_store(pdf_files)
         queries ="Please provide the following information regarding the fraud case based on the uploaded file: Victim's Name,Existence of any reported suspect\
         List of Merchant names, How the bank was notified, Date of bank notification, Type of Fraud, Date of the fraud occurrence\
         Whether the disputed amount exceeded 5000 USD, Types of cards involved, Whether a police report was filed\
@@ -266,13 +265,13 @@ if st.button("Submit"):
                 10. Was the police report filed?\n\
                 11. Based on the evidence is this a suspicious activity?\n\
               Context: {contexts}\n\
-              Response (in readable bullet points): "
+              Response (in readable tabular with two columns where one column would carry the questions while the other column would have a descriptive answer): "
               
 
         response = usellm(prompts)
         memory.save_context({"input": f"{queries}"}, {"output": f"{response}"})
         st.write(response)
-        st.write(memory.load_memory_variables({}))
+        # st.write(memory.load_memory_variables({}))
 
 # #st.write("Uploaded File Contents:")
 # if pdf_files is not None:
