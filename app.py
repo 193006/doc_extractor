@@ -190,10 +190,8 @@ if selected_option == "Case 1":
             for page in final_pdf.pages:
                 text = page.extract_text()
                 all_text.append(text)
-            st.write(all_text)
-    
-    return ' '.join(all_text)
-            st.write(merged_pdf.getvalue())
+            final_txt = ' '.join(all_text)
+            st.write(final_txt)
 
             # downloading content
             # st.download_button(
