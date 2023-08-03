@@ -77,21 +77,17 @@ def merge_and_extract_text(pdf_list):
 
 # def merge_and_extract_text(pdf_list):
 #     merged_pdf = fitz.open()
-
 #     # Merge the PDF files
 #     for pdf_file in pdf_list:
 #         pdf_document = fitz.open(pdf_file)
 #         merged_pdf.insert_pdf(pdf_document)
-
 #     # Create an empty string to store the extracted text
 #     merged_text = ""
-
 #     # Extract text from each page of the merged PDF
 #     for page_num in range(merged_pdf.page_count):
 #         page = merged_pdf[page_num]
 #         text = page.get_text()
 #         merged_text += text
-
 #     # Close the merged PDF
 #     merged_pdf.close()
 #     return merged_text
@@ -187,7 +183,16 @@ if selected_option == "Case 1":
     # Merge PDFs extract text
     if st.button("Merge and Download"):
         if pdf_files:
-            merged_pdf = merge_and_extract_text(pdf_files)
+            merged_pdf = merge_pdfs(pdf_files)
+            # Extract text from merged PDF
+            final_pdf = PyPDF2.PdfReader(merged_pdf)
+            all_text = []
+            for page in final_pdf.pages:
+                text = page.extract_text()
+                all_text.append(text)
+            st.write(all_text)
+    
+    return ' '.join(all_text)
             st.write(merged_pdf.getvalue())
 
             # downloading content
