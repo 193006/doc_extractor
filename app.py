@@ -132,53 +132,51 @@ hf_embeddings = embed(model_name)
 
 
 # Vizualising the files
-if True:
-    st.header("Welcome to the PDF Merger App")
-    st.write("Use the navigation sidebar to merge PDF files.")
+st.header("Welcome to the PDF Merger App")
+st.write("Use the navigation sidebar to merge PDF files.")
 
-    # Add a single dropdown
-    st.subheader("Select an option:")
-    options = ["Select an option", "Case 1", "Case 2", "Case 3", "Case 4", "Case 5"]
-    selected_option = st.selectbox("Options", options)
+# Add a single dropdown
+st.subheader("Select an option:")
+options = ["Select an option", "Case 1", "Case 2", "Case 3", "Case 4", "Case 5"]
+selected_option = st.selectbox("Options", options)
 
-    # Redirect to Merge PDFs page when "Merge PDFs" is selected
-    if selected_option == "Case 1":
-        st.header("Merge PDFs")
-        st.write("Upload multiple PDF files and merge them into one PDF.")
+# Redirect to Merge PDFs page when "Merge PDFs" is selected
+if selected_option == "Case 1":
+    st.header("Merge PDFs")
+    st.write("Upload multiple PDF files and merge them into one PDF.")
 
-        # Upload PDF files
-        st.subheader("Upload PDF Files")
-        pdf_files = st.file_uploader("Choose PDF files", type=["pdf"], accept_multiple_files=True)
-        
-        # Show uploaded files in a dropdown
+    # Upload PDF files
+    st.subheader("Upload PDF Files")
+    pdf_files = st.file_uploader("Choose PDF files", type=["pdf"], accept_multiple_files=True)
+    
+    # Show uploaded files in a dropdown
+    if pdf_files:
+        st.subheader("Uploaded Files:")
+        file_names = [file.name for file in pdf_files]
+        selected_file = st.selectbox("Select a file", file_names)
+
+        # Display selected PDF contents
+        if selected_file:
+            selected_pdf = [pdf for pdf in pdf_files if pdf.name == selected_file][0]
+            pdf_images = render_pdf_as_images(selected_pdf)
+            st.subheader(f"Contents of {selected_file}")
+            for img_bytes in pdf_images:
+                st.image(img_bytes, use_column_width=True)              
+                
+    # Merge PDFs extract text
+    if st.button("Merge and Download"):
         if pdf_files:
-            st.subheader("Uploaded Files:")
-            file_names = [file.name for file in pdf_files]
-            selected_file = st.selectbox("Select a file", file_names)
-
-            # Display selected PDF contents
-            if selected_file:
-                selected_pdf = [pdf for pdf in pdf_files if pdf.name == selected_file][0]
-                pdf_images = render_pdf_as_images(selected_pdf)
-                st.subheader(f"Contents of {selected_file}")
-                for img_bytes in pdf_images:
-                    st.image(img_bytes, use_column_width=True)
-                    
-
-        # Merge PDFs extract text
-        if st.button("Merge and Download"):
-            if pdf_files:
-                merged_pdf = merge_and_extract_text(pdf_files)
-                st.write(merged_pdf)
-                """
-                # downloading content
-                st.download_button(
-                    label="Download Merged PDF",
-                    data=merged_pdf.getvalue(),
-                    file_name="merged_pdf.pdf",
-                    mime="application/pdf",
-                )
-                """
+            merged_pdf = merge_and_extract_text(pdf_files)
+            st.write(merged_pdf)
+            """
+            # downloading content
+            st.download_button(
+                label="Download Merged PDF",
+                data=merged_pdf.getvalue(),
+                file_name="merged_pdf.pdf",
+                mime="application/pdf",
+            )
+            """
 
 
 text_splitter = RecursiveCharacterTextSplitter(
