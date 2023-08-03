@@ -42,6 +42,10 @@ st.title("Suspicious Activity Reporting")
 st.subheader('Evidence Processor')
 # Adding Sidebar
 st.sidebar.image('logo.png', width=100)
+# Navbar
+st.sidebar.title("Navigation")
+
+
 @st.cache_data
 def merge_pdfs(pdf_list):
     """
