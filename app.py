@@ -3,11 +3,9 @@ import random,os
 import streamlit as st
 from langchain.llms import OpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
-#from langchain.text_splitter import CharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 import openai
-# from playsound import playsound
 from gtts import gTTS
 from PyPDF2 import PdfReader
 from utils import text_to_docs
@@ -15,34 +13,33 @@ from langchain import PromptTemplate, LLMChain
 from langchain.chat_models import ChatOpenAI
 from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
-#import os
-#from io import StringIO
+from io import StringIO
+from usellm import Message, Options, UseLLM
+#from playsound import playsound
+#from langchain.text_splitter import CharacterTextSplitter
 #from langchain.embeddings.openai import OpenAIEmbeddings
 #from langchain.chains.summarize import load_summarize_chain
 #import os
 #import pyaudio
 #import wave
-#import langchain
 #from langchain.document_loaders import UnstructuredPDFLoader
 #from io import BytesIO
-# import streamlit.components.v1 as components
+#import streamlit.components.v1 as components
 #from st_custom_components import st_audiorec, text_to_docs
-
-
 #import sounddevice as sd
 #from scipy.io.wavfile import write
-from usellm import Message, Options, UseLLM
+
+
 os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 st.title("Suspicious Activity Reporting")
 st.subheader('Evidence Processor')
 
-
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
 
 # Memory setup
 llm = ChatOpenAI(temperature=0.0)
-memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=100)
+memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=300)
 conversation = ConversationChain(llm=llm, memory =memory,verbose=False)
 
 
