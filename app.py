@@ -169,16 +169,16 @@ if selected_option == "Case 1":
     if st.button("Merge and Download"):
         if pdf_files:
             merged_pdf = merge_pdfs(pdf_files)
-            st.write(merged_pdf)
-            """
+            st.write(merged_pdf.getvalue())
+
             # downloading content
-            st.download_button(
-                label="Download Merged PDF",
-                data=merged_pdf.getvalue(),
-                file_name="merged_pdf.pdf",
-                mime="application/pdf",
-            )
-            """
+            # st.download_button(
+            #     label="Download Merged PDF",
+            #     data=merged_pdf.getvalue(),
+            #     file_name="merged_pdf.pdf",
+            #     mime="application/pdf",
+            # )
+
 
 
 text_splitter = RecursiveCharacterTextSplitter(
