@@ -90,7 +90,16 @@ def render_pdf_as_images(pdf_file):
         pdf_images.append(img_bytes)
     pdf_document.close()
     return pdf_images
-
+    
+# Set Streamlit layout
+st.set_page_config(page_title="SAR Usecase ~~~~", layout="wide")
+# Adding titles
+st.title("Suspicious Activity Reporting")
+st.subheader('Evidence Processor')
+# Adding Sidebar
+st.sidebar.image('logo.png', width=100)
+# Navbar
+st.sidebar.title("Navigation")
 
 
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
@@ -122,15 +131,7 @@ def embed(model_name):
 
 hf_embeddings = embed(model_name) 
 
-# Set Streamlit layout
-st.set_page_config(page_title="SAR Usecase ~~~~", layout="wide")
-# Adding titles
-st.title("Suspicious Activity Reporting")
-st.subheader('Evidence Processor')
-# Adding Sidebar
-st.sidebar.image('logo.png', width=100)
-# Navbar
-st.sidebar.title("Navigation")
+
 
 # Vizualising the files
 st.header("Welcome to the PDF Merger App")
