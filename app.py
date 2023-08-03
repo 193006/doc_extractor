@@ -12,6 +12,7 @@ from gtts import gTTS
 from PyPDF2 import PdfReader
 from utils import text_to_docs
 from langchain import PromptTemplate, LLMChain
+from langchain.memory import ConversationSummaryBufferMemory
 #import os
 #from io import StringIO
 #from langchain.embeddings.openai import OpenAIEmbeddings
@@ -29,13 +30,20 @@ from langchain import PromptTemplate, LLMChain
 #import sounddevice as sd
 #from scipy.io.wavfile import write
 from usellm import Message, Options, UseLLM
-
+os.environ["OPENAI_API_KEY"] =OPENAI_API_KEY
 
 st.title("Suspicious Activity Reporting")
 st.subheader('Evidence Processor')
 
 
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
+# Memory setup
+memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=100)
+conversation = ConversationChain(
+    llm=llm, 
+    memory = memory,
+    verbose=True
+)
 
 @st.cache_data
 def usellm(prompt):
@@ -113,7 +121,9 @@ if st.button("Submit"):
               
 
         response = usellm(prompts)
+        memory.save_context({"input": f"{queries}}, {"output": f"{response}})
         st.write(response)
+        st.write(memory.load_memory_variables({})['history'].split(':')[1])
 
 #st.write("Uploaded File Contents:")
 if file is not None:
