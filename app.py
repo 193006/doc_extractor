@@ -246,4 +246,4 @@ st.markdown(
     }
     </style>
     """,unsafe_allow_html=True)
-st.markdown('<div class="GithubIcon"><p></p></div>', unsafe_allow_html=True)
+st.markdown('<div class="MainMenu"><p></p></div>', unsafe_allow_html=True)
