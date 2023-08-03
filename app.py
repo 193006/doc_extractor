@@ -6,6 +6,7 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from langchain.vectorstores import FAISS
 import openai
+import fitz
 from gtts import gTTS
 from PyPDF2 import PdfReader
 from utils import text_to_docs
@@ -15,6 +16,7 @@ from langchain.chains import ConversationChain
 from langchain.memory import ConversationBufferMemory
 from langchain.memory import ConversationSummaryBufferMemory
 from io import StringIO
+from io import BytesIO
 from usellm import Message, Options, UseLLM
 #from playsound import playsound
 #from langchain.text_splitter import CharacterTextSplitter
@@ -24,7 +26,6 @@ from usellm import Message, Options, UseLLM
 #import pyaudio
 #import wave
 #from langchain.document_loaders import UnstructuredPDFLoader
-#from io import BytesIO
 #import streamlit.components.v1 as components
 #from st_custom_components import st_audiorec, text_to_docs
 #import sounddevice as sd
