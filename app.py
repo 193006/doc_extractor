@@ -236,7 +236,6 @@ def embedding_store(pdf_files):
         text += page.extract_text()
     texts =  text_splitter.split_text(text)
     docs = text_to_docs(texts)
-    st.write(texts)
     docsearch = FAISS.from_documents(docs, hf_embeddings)
     return docs, docsearch
 
