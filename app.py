@@ -30,7 +30,7 @@ from langchain.memory import ConversationSummaryBufferMemory
 #import sounddevice as sd
 #from scipy.io.wavfile import write
 from usellm import Message, Options, UseLLM
-os.environ["OPENAI_API_KEY"] =OPENAI_API_KEY
+os.environ["OPENAI_API_KEY"] = st.secrets["OPENAI_API_KEY"]
 
 st.title("Suspicious Activity Reporting")
 st.subheader('Evidence Processor')
