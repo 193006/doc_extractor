@@ -231,12 +231,10 @@ text_splitter = RecursiveCharacterTextSplitter(
 def embedding_store(pdf_files):
     merged_pdf = merge_pdfs(pdf_files)
     final_pdf = PyPDF2.PdfReader(merged_pdf)
-    all_text = []
+    text = ""
     for page in final_pdf.pages:
-        text = page.extract_text()
-        all_text.append(text)
-    final_txt = ' '.join(all_text)
-    texts =  text_splitter.split_text(final_txt)
+        text += page.extract_text()
+    texts =  text_splitter.split_text(text)
     docs = text_to_docs(texts)
     st.write(texts)
     docsearch = FAISS.from_documents(docs, hf_embeddings)
