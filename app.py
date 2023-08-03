@@ -120,7 +120,8 @@ st.sidebar.title("Navigation")
 
 
 # model_name = "sentence-transformers/all-MiniLM-L6-v2"
-model_name="hkunlp/instructor-xl"
+# model_name = "hkunlp/instructor-xl"
+model_name = "thenlper/gte-large"
 
 # Memory setup
 llm = ChatOpenAI(temperature=0.0)
