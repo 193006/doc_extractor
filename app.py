@@ -60,6 +60,30 @@ def merge_pdfs(pdf_list):
     pdf_merger.close()
     return output_pdf
 
+
+@st.cache_data
+def merge_and_extract_text(pdf_list):
+    merged_pdf = fitz.open()
+
+    # Merge the PDF files
+    for pdf_file in pdf_list:
+        pdf_document = fitz.open(pdf_file)
+        merged_pdf.insert_pdf(pdf_document)
+
+    # Create an empty string to store the extracted text
+    merged_text = ""
+
+    # Extract text from each page of the merged PDF
+    for page_num in range(merged_pdf.page_count):
+        page = merged_pdf[page_num]
+        text = page.get_text()
+        merged_text += text
+
+    # Close the merged PDF
+    merged_pdf.close()
+    return merged_text
+
+
 @st.cache_data
 def render_pdf_as_images(pdf_file):
     """
@@ -141,16 +165,20 @@ if True:
                     st.image(img_bytes, use_column_width=True)
                     
 
-        # Merge PDFs and download
+        # Merge PDFs extract text
         if st.button("Merge and Download"):
             if pdf_files:
-                merged_pdf = merge_pdfs(pdf_files)
+                merged_pdf = merge_and_extract_text(pdf_files)
+                st.write(merged_pdf)
+                """
+                # downloading content
                 st.download_button(
                     label="Download Merged PDF",
                     data=merged_pdf.getvalue(),
                     file_name="merged_pdf.pdf",
                     mime="application/pdf",
                 )
+                """
 
 
 text_splitter = RecursiveCharacterTextSplitter(
