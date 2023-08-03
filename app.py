@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import random
+import random,os
 import streamlit as st
 from langchain.llms import OpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
