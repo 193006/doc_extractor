@@ -190,7 +190,7 @@ if selected_option == "Case 1":
             for page in final_pdf.pages:
                 text = page.extract_text()
                 all_text.append(text)
-            final_txt = ' '.join(all_text)
+            global final_txt = ' '.join(all_text)
             st.write(type(final_txt))
 
             # downloading content
@@ -237,7 +237,7 @@ def embedding_store(txt_doc):
 
 # Submit Button
 if st.button("Submit"):
-    if type(final_pdf) == "str":
+    if len(final_txt) > 1:
         # File handling logic
         st.write("File Uploaded...")
         _, docsearch = embedding_store(final_txt)
@@ -268,7 +268,7 @@ if st.button("Submit"):
         st.write(memory.load_memory_variables({}))
 
 #st.write("Uploaded File Contents:")
-if final_txt is not None:
+if len(final_txt) > 1:
     docs, docsearch = embedding_store(final_txt)
 
 # Text Input
