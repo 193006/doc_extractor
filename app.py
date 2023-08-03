@@ -241,23 +241,10 @@ st.markdown(
     """
     <style>
     #MainMenu {visibility: hidden;}
-    GithubIcon {
+    css-30do4w e10z71040 {
       visibility: hidden;
     }
     </style>
     """,unsafe_allow_html=True)
 st.markdown('<div class="MainMenu"><p></p></div>', unsafe_allow_html=True)
 
-
-st.markdown(
-    """
-    <style>
-    .css-1jc7ptx, .e1ewe7hr3, .viewerBadge_container__1QSob,
-    .styles_viewerBadge__1yB5_, .viewerBadge_link__1S137,
-    .viewerBadge_text__1JaDK {
-        display: none;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
