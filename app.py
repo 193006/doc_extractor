@@ -230,7 +230,7 @@ if query:
 st.markdown(
     """
     <style>
-      MainMenu {visibility: hidden;}
+      #MainMenu {visibility: hidden;}
       footer {visibility: hidden;}
     </style>
     """
@@ -240,6 +240,7 @@ st.markdown('<div class="footer"><p></p></div>', unsafe_allow_html=True)
 st.markdown(
     """
     <style>
+    #MainMenu {visibility: hidden;}
     GithubIcon {
       visibility: hidden;
     }
