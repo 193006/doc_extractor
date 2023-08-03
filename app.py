@@ -191,7 +191,7 @@ if selected_option == "Case 1":
                 text = page.extract_text()
                 all_text.append(text)
             final_txt = ' '.join(all_text)
-            # st.write(final_txt)
+            st.write(type(final_txt))
 
             # downloading content
             # st.download_button(
