@@ -181,18 +181,17 @@ if selected_option == "Case 1":
                 st.image(img_bytes, use_column_width=True)              
                 
     # Merge PDFs extract text
-    if st.button("Merge and Download"):
-        if pdf_files:
-            merged_pdf = merge_pdfs(pdf_files)
-            # Extract text from merged PDF
-            final_pdf = PyPDF2.PdfReader(merged_pdf)
-            all_text = []
-            global final_txt
-            for page in final_pdf.pages:
-                text = page.extract_text()
-                all_text.append(text)
-            final_txt = ' '.join(all_text)
-            st.write(type(final_txt))
+    # if st.button("Merge and Download"):
+    #     if pdf_files:
+    #         merged_pdf = merge_pdfs(pdf_files)
+    #         # Extract text from merged PDF
+    #         final_pdf = PyPDF2.PdfReader(merged_pdf)
+    #         all_text = []
+    #         global final_txt
+    #         for page in final_pdf.pages:
+    #             text = page.extract_text()
+    #             all_text.append(text)
+    #         final_txt = ' '.join(all_text)
 
             # downloading content
             # st.download_button(
@@ -240,6 +239,13 @@ def embedding_store(txt_doc):
 if st.button("Submit"):
     if pdf_files is not None:
         # File handling logic
+        merged_pdf = merge_pdfs(pdf_files)
+        final_pdf = PyPDF2.PdfReader(merged_pdf)
+        all_text = []
+        for page in final_pdf.pages:
+            text = page.extract_text()
+            all_text.append(text)
+        final_txt = ' '.join(all_text)
         # st.write("File Uploaded...")
         _, docsearch = embedding_store(final_txt)
         queries ="Please provide the following information regarding the fraud case based on the uploaded file: Victim's Name,Existence of any reported suspect\
