@@ -55,25 +55,46 @@ def merge_pdfs(pdf_list):
 
 @st.cache_data
 def merge_and_extract_text(pdf_list):
-    merged_pdf = fitz.open()
+    """
+    Helper function to merge PDFs and extract text
+    """
+    pdf_merger = PyPDF2.PdfMerger()
+    for pdf in pdf_list:
+        with open(pdf, 'rb') as file:
+            pdf_merger.append(file)
+    output_pdf = BytesIO()
+    pdf_merger.write(output_pdf)
+    pdf_merger.close()
+    
+    # Extract text from merged PDF
+    merged_pdf = PyPDF2.PdfReader(output_pdf)
+    all_text = []
+    for page in merged_pdf.pages:
+        text = page.extract_text()
+        all_text.append(text)
+    
+    return ' '.join(all_text)
 
-    # Merge the PDF files
-    for pdf_file in pdf_list:
-        pdf_document = fitz.open(pdf_file)
-        merged_pdf.insert_pdf(pdf_document)
+# def merge_and_extract_text(pdf_list):
+#     merged_pdf = fitz.open()
 
-    # Create an empty string to store the extracted text
-    merged_text = ""
+#     # Merge the PDF files
+#     for pdf_file in pdf_list:
+#         pdf_document = fitz.open(pdf_file)
+#         merged_pdf.insert_pdf(pdf_document)
 
-    # Extract text from each page of the merged PDF
-    for page_num in range(merged_pdf.page_count):
-        page = merged_pdf[page_num]
-        text = page.get_text()
-        merged_text += text
+#     # Create an empty string to store the extracted text
+#     merged_text = ""
 
-    # Close the merged PDF
-    merged_pdf.close()
-    return merged_text
+#     # Extract text from each page of the merged PDF
+#     for page_num in range(merged_pdf.page_count):
+#         page = merged_pdf[page_num]
+#         text = page.get_text()
+#         merged_text += text
+
+#     # Close the merged PDF
+#     merged_pdf.close()
+#     return merged_text
 
 
 @st.cache_data
