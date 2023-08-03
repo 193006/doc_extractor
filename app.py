@@ -191,7 +191,7 @@ if selected_option == "Case 1":
                 text = page.extract_text()
                 all_text.append(text)
             final_txt = ' '.join(all_text)
-            st.write(final_txt)
+            # st.write(final_txt)
 
             # downloading content
             # st.download_button(
@@ -211,15 +211,25 @@ text_splitter = RecursiveCharacterTextSplitter(
 )
 #text_splitter = CharacterTextSplitter.from_tiktoken_encoder(chunk_size=100, chunk_overlap=0)
 #texts = ''
+
+# @st.cache_data
+# def embedding_store(file):
+#     # save file
+#     pdf_reader = PdfReader(file)
+#     text = ""
+#     for page in pdf_reader.pages:
+#         text += page.extract_text()
+#     #st.write(text)
+#     texts =  text_splitter.split_text(text)
+#     docs = text_to_docs(texts)
+#     #st.write(texts)
+#     docsearch = FAISS.from_documents(docs, hf_embeddings)
+#     return docs, docsearch
+
+
 @st.cache_data
-def embedding_store(file):
-    # save file
-    pdf_reader = PdfReader(file)
-    text = ""
-    for page in pdf_reader.pages:
-        text += page.extract_text()
-    #st.write(text)
-    texts =  text_splitter.split_text(text)
+def embedding_store(txt_doc):
+    texts =  text_splitter.split_text(txt_doc)
     docs = text_to_docs(texts)
     #st.write(texts)
     docsearch = FAISS.from_documents(docs, hf_embeddings)
@@ -227,10 +237,10 @@ def embedding_store(file):
 
 # Submit Button
 if st.button("Submit"):
-    if merged_pdf is not None:
+    if final_txt is not None:
         # File handling logic
         st.write("File Uploaded...")
-        _, docsearch = embedding_store(merged_pdf)
+        _, docsearch = embedding_store(final_txt)
         queries ="Please provide the following information regarding the fraud case based on the uploaded file: Victim's Name,Existence of any reported suspect\
         List of Merchant names, How the bank was notified, Date of bank notification, Type of Fraud, Date of the fraud occurrence\
         Whether the disputed amount exceeded 5000 USD, Types of cards involved, Whether a police report was filed\
