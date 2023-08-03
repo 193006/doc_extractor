@@ -234,8 +234,8 @@ if st.button("Submit"):
         st.write(memory.load_memory_variables({}))
 
 #st.write("Uploaded File Contents:")
-if file is not None:
-    docs, docsearch = embedding_store(file)
+if merged_pdf is not None:
+    docs, docsearch = embedding_store(merged_pdf)
 
 # Text Input
 st.subheader("Ask Questions")
