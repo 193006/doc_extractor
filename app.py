@@ -102,7 +102,7 @@ def embedding_store(file):
     text = ""
     for page in pdf_reader.pages:
         text += page.extract_text()
-    #st.write(text)
+    st.write(text)
     texts =  text_splitter.split_text(text)
     docs = text_to_docs(texts)
     #st.write(texts)
