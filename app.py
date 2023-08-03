@@ -12,6 +12,7 @@ from gtts import gTTS
 from PyPDF2 import PdfReader
 from utils import text_to_docs
 from langchain import PromptTemplate, LLMChain
+from langchain.chat_models import ChatOpenAI
 from langchain.memory import ConversationSummaryBufferMemory
 #import os
 #from io import StringIO
@@ -37,7 +38,15 @@ st.subheader('Evidence Processor')
 
 
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
+
 # Memory setup
+llm = ChatOpenAI(temperature=0.0)
+memory = ConversationBufferMemory()
+conversation = ConversationChain(
+    llm=llm, 
+    memory = memory,
+    verbose=False
+)
 memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=100)
 conversation = ConversationChain(
     llm=llm, 
