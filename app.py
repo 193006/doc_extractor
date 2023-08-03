@@ -128,9 +128,8 @@ def embed(model_name):
     hf_embeddings = HuggingFaceEmbeddings(model_name=model_name)
     return hf_embeddings
 
-
+@st.cache_resource
 hf_embeddings = embed(model_name) 
-
 
 
 # Vizualising the files
@@ -205,10 +204,10 @@ def embedding_store(file):
 
 # Submit Button
 if st.button("Submit"):
-    if file is not None:
+    if merged_pdf is not None:
         # File handling logic
         st.write("File Uploaded...")
-        _, docsearch = embedding_store(file)
+        _, docsearch = embedding_store(merged_pdf)
         queries ="Please provide the following information regarding the fraud case based on the uploaded file: Victim's Name,Existence of any reported suspect\
         List of Merchant names, How the bank was notified, Date of bank notification, Type of Fraud, Date of the fraud occurrence\
         Whether the disputed amount exceeded 5000 USD, Types of cards involved, Whether a police report was filed\
