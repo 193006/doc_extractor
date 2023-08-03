@@ -9,3 +9,4 @@ tiktoken
 gTTS==2.3.2
 huggingface-hub==0.15.1
 usellm==0.0.7
+PyMuPDF==1.22.5
