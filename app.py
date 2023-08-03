@@ -41,18 +41,9 @@ model_name = "sentence-transformers/all-MiniLM-L6-v2"
 
 # Memory setup
 llm = ChatOpenAI(temperature=0.0)
-memory = ConversationBufferMemory()
-conversation = ConversationChain(
-    llm=llm, 
-    memory = memory,
-    verbose=False
-)
 memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=100)
-conversation = ConversationChain(
-    llm=llm, 
-    memory = memory,
-    verbose=True
-)
+conversation = ConversationChain(llm=llm, memory =memory,verbose=False)
+
 
 @st.cache_data
 def usellm(prompt):
