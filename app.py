@@ -166,7 +166,7 @@ if selected_option == "Case 1":
     # Merge PDFs extract text
     if st.button("Merge and Download"):
         if pdf_files:
-            merged_pdf = merge_pdfs(pdf_files)
+            merged_pdf = merge_and_extract_text(pdf_files)
             st.write(merged_pdf.getvalue())
 
             # downloading content
