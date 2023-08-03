@@ -6,6 +6,7 @@ sentence_transformers==2.2.2
 faiss-cpu==1.7.4
 PyPDF2==3.0.1
 usellm==0.0.7
+tiktoken==0.0.4
 gTTS==2.3.2
 huggingface-hub==0.15.1
 
