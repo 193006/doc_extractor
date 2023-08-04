@@ -274,10 +274,11 @@ if st.button("Submit"):
         st.write(response)
         # st.write(memory.load_memory_variables({}))
 
-
-if pdf_files is not None:
+try:
     docs, docsearch = embedding_store(pdf_files)
-else: pass
+except NameError:
+    pass
+
 
 # Text Input
 st.subheader("Ask Questions")
