@@ -406,7 +406,7 @@ if query:
 
 
 if st.button("Summarize"):
-    chat_history = " ".join(resp_dict_obj.values)
+    chat_history = resp_dict_obj['Summary']
     memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=700)
     memory.save_context({"input": "This is the entire chat summary"}, 
                     {"output": f"{chat_history}"})
