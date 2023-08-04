@@ -111,8 +111,8 @@ def render_pdf_as_images(pdf_file):
 # Set Streamlit layout
 st.set_page_config(page_title="SAR Usecase ~~~~", layout="wide")
 # Adding titles
-st.title("Suspicious Activity Reporting")
-st.subheader('Evidence Processor')
+st.title("SAR Evidence Processor")
+# st.subheader('Evidence Processor')
 # Adding Sidebar
 st.sidebar.image('logo.png', width=100)
 # Navbar
