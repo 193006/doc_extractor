@@ -251,7 +251,7 @@ if st.button("Submit"):
         and based on the evidence, is this a suspicious activity- give me a very detailed summary of above questions asked before this\
         "
         contexts = docsearch.similarity_search(queries, k=5) 
-        prompts = f" Give a the answer to the below questions as truthfully and in as detailed in the form of sentences \n\n
+        prompts = f" Give a the answer to the below questions as truthfully and in as detailed in the form of sentences\
         as possible as per given context only,\n\n\
                 1. What is the Victim's Name?\n\
                 2. Has any suspect been reported?\n\
