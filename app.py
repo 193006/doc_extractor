@@ -280,6 +280,7 @@ if st.button("**Key Insights**"):
             context: {response}\
             Response (give me the response in the form of a python dictionary): "
         resp_dict = usellm(prompt_conv)
+        st.write(resp_dict.items())
 
 # For input box outside of template
 try:
