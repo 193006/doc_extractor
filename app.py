@@ -294,7 +294,7 @@ except Exception:
 
 # Text Input
 text_dict = {}
-st.subheader("Ask Questions")
+st.subheader("Ask Case Questions")
 query = st.text_input('your queries will go here...')
 
 
