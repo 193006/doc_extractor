@@ -278,9 +278,8 @@ if st.button("**Key Insights**"):
         # Convert the response in dictionary
         prompt_conv = f" Convert the tabular data into a python dictionary\
             context: {response}\
-            Response (give me the response in the form of a python dictionaryo): "
+            Response (give me the response in the form of a python dictionary): "
         resp_dict = usellm(prompt_conv)
-        st.write(resp_dict)
 
 # For input box outside of template
 try:
@@ -394,9 +393,10 @@ if query:
     
         #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
         response = usellm(prompt_1) #LLM_Response()
-        text_dict["query"] = response
         st.write(response)
-        st.write(text_dict.items())
+        text_dict["query"] = response
+        resp_dict.update(text_dict)
+        st.write(resp_dict.items())
 
     except Exception:
         pass
