@@ -245,7 +245,7 @@ if st.button("Submit"):
     if pdf_files is not None:
         # File handling logic
         _, docsearch = embedding_store(pdf_files)
-        queries ="Please provide the following information regarding the fraud case based on the uploaded file: What is the victim's name,\
+        queries ="Please provide the following information regarding the possible fraud case: What is the name of the victim,\
         has any suspect been reported, list the merchant name, how was the bank notified, when was the bank notified, what is the fraud type,\
         when did the fraud occur, was the disputed amount greater than 5000 USD, what type of cards are involved, was the police report filed,\
         and based on the evidence, is this a suspicious activity- give me a summary of above questions asked and nothing more?\
