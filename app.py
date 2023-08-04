@@ -280,7 +280,7 @@ if st.button("**Key Insights**"):
             context: {response}\
             Response (give me the response in the form of a python dictionary): "
         resp_dict = usellm(prompt_conv)
-        st.write(resp_dict.items())
+        st.write(resp_dict)
 
 # For input box outside of template
 try:
@@ -396,7 +396,7 @@ if query:
         response = usellm(prompt_1) #LLM_Response()
         st.write(response)
         text_dict["query"] = response
-        resp_dict.update(text_dict)
+        # resp_dict.update(text_dict)
         st.write(text_dict.items())
 
     except Exception:
