@@ -250,7 +250,7 @@ if st.button("Submit"):
         when did the fraud occur, was the disputed amount greater than 5000 USD, what type of cards are involved, was the police report filed,\
         and based on the evidence, is this a suspicious activity- give me a summary of above questions asked and nothing more?\
         "
-        contexts = docsearch.similarity_search(queries, k=1) 
+        contexts = docsearch.similarity_search(queries, k=3) 
         prompts = f" Give a descriptive answer to the below questions as truthfully as possible as per given context only,\n\n\
                 1. What is the Victim's Name?\n\
                 2. Has any suspect been reported?\n\
@@ -275,7 +275,7 @@ if st.button("Submit"):
 
 
 if pdf_files is not None:
-    docs, docsearch = embedding_store(final_txt)
+    docs, docsearch = embedding_store(pdf_files)
 else: pass
 
 # Text Input
