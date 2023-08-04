@@ -304,6 +304,7 @@ def LLM_Response():
 
         
 if query:
+    tmp = {}
     # Text input handling logic
     #st.write("Text Input:")
     #st.write(text_input)
@@ -397,7 +398,8 @@ if query:
         #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
         response = usellm(prompt_1) #LLM_Response()
         st.write(response)
-        text_dict["query"] = response
+        tmp[query] = response
+        text_dict.update(tmp)
         st.write(text_dict.items())
         
         # resp_dict_obj.update(text_dict)
