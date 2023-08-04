@@ -281,9 +281,8 @@ if st.button("Key Case Insights"):
             context: {response}\
             Response (give me the response in the form of a python dictionary): "
         resp_dict = usellm(prompt_conv)
-        global resp_dict_obj
         resp_dict_obj = json.loads(resp_dict)
-        st.write(resp_dict_obj.items())
+        # st.write(resp_dict_obj.items())
 
 # For input box outside of template
 try:
@@ -406,16 +405,16 @@ if query:
 
 
 if st.button("Summarize"):
-    chat_history = resp_dict_obj['Summary']
-    memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=700)
-    memory.save_context({"input": "This is the entire chat summary"}, 
-                    {"output": f"{chat_history}"})
-    conversation = ConversationChain(
-    llm=llm, 
-    memory = memory,
-    verbose=True)
-    final_opt = conversation.predict(input="Give me a detailed summary of the above texts.")
-    st.write(final_opt)
+    # chat_history = resp_dict_obj['Summary']
+    # memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=700)
+    # memory.save_context({"input": "This is the entire chat summary"}, 
+    #                 {"output": f"{chat_history}"})
+    # conversation = ConversationChain(
+    # llm=llm, 
+    # memory = memory,
+    # verbose=True)
+    # final_opt = conversation.predict(input="Give me a detailed summary of the above texts.")
+    st.write("under-development...)
     
 
 # Footer
