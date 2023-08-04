@@ -405,7 +405,7 @@ if query:
     except Exception:
         pass
 
-if st.button("     Summarize      "):
+if st.button("Summarize"):
     chat_history = " ".join(resp_dict_obj.values)
     memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=700)
     memory.save_context({"input": "This is the entire chat summary"}, 
