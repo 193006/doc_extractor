@@ -404,7 +404,18 @@ if query:
     except Exception:
         pass
 
-st.button("**Summarize my Conversation**")
+if st.button("**      Summarize      **"):
+    chat_history = " ".join(resp_dict_obj.values)
+    memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=700)
+    memory.save_context({"input": "This is the entire chat summary"}, 
+                    {"output": f"{chat_history}"})
+    conversation = ConversationChain(
+    llm=llm, 
+    memory = memory,
+    verbose=True)
+    final_opt = conversation.predict(input="Give me a detailed summary of the above texts.")
+    st.write(final_opt)
+    
 
 # Footer
 st.markdown(
