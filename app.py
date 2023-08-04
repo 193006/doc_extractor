@@ -159,7 +159,6 @@ options = ["Select an option", "Case 1", "Case 2", "Case 3", "Case 4", "Case 5"]
 selected_option = st.selectbox("Options", options)
 
 # Redirect to Merge PDFs page when "Merge PDFs" is selected
-global pdf_files 
 if selected_option == "Case 1":
     st.header("Merge PDFs")
     st.write("Upload multiple PDF files and merge them into one PDF.")
@@ -246,7 +245,7 @@ if st.button("Submit"):
     if pdf_files is not None:
         # File handling logic
         _, docsearch = embedding_store(pdf_files)
-        queries ="Please provide the following information regarding the possible fraud case: What is the name of the victim,\
+        queries ="Please provide the following information regarding the possible fraud case: What is the name of the victim or the customer name,\
         has any suspect been reported, list the merchant name, how was the bank notified, when was the bank notified, what is the fraud type,\
         when did the fraud occur, was the disputed amount greater than 5000 USD, what type of cards are involved, was the police report filed,\
         and based on the evidence, is this a suspicious activity- give me a summary of above questions asked and nothing more?\
