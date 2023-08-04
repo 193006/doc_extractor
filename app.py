@@ -271,9 +271,16 @@ if st.button("**Key Insights**"):
               
 
         response = usellm(prompts)
-        memory.save_context({"input": f"{queries}"}, {"output": f"{response}"})
+        # memory.save_context({"input": f"{queries}"}, {"output": f"{response}"})
         st.write(response)
         # st.write(memory.load_memory_variables({}))
+
+        # Convert the response in dictionary
+        prompt_conv = f" Convert the tabular data into a python dictionary\
+            context: {response}
+            Response (give me the response in the form of a python dictionaryo): "
+        resp_dict = usellm(prompt_conv)
+        st.write(resp_dict)
 
 # For input box outside of template
 try:
