@@ -414,7 +414,7 @@ if st.button("Summarize"):
     # memory = memory,
     # verbose=True)
     # final_opt = conversation.predict(input="Give me a detailed summary of the above texts.")
-    st.write("under-development...)
+    st.write("under-development...")
     
 
 # Footer
