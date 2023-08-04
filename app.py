@@ -241,7 +241,7 @@ def embedding_store(pdf_files):
     return docs, docsearch
 
 # Submit Button
-if st.button("Submit"):
+if st.button("**Key Insights**"):
     if pdf_files is not None:
         # File handling logic
         _, docsearch = embedding_store(pdf_files)
@@ -386,8 +386,8 @@ if query:
     #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
     response = usellm(prompt_1) #LLM_Response()
     st.write(response)
-
-
+    
+    st.button("**Summarize my Conversation**")
 
 # Footer
 st.markdown(
