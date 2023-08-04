@@ -397,9 +397,7 @@ if query:
         response = usellm(prompt_1) #LLM_Response()
         st.write(response)
         tmp[query] = response
-        return tmp
-        
-
+        st.write(tmp.items())
 
     except Exception:
         pass
