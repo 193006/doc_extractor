@@ -154,7 +154,7 @@ hf_embeddings = embed(model_name)
 # st.write("Use the navigation sidebar to merge PDF files.")
 
 # Add a single dropdown
-# st.subheader("Select a Case No.")
+st.subheader("Select a Case No.")
 options = ["Select a Case", "Case 1", "Case 2", "Case 3", "Case 4", "Case 5"]
 selected_option = st.selectbox("Options", options)
 
@@ -164,7 +164,7 @@ if selected_option == "Case 1":
     # st.write("Upload multiple document files and merge them into one doc.")
 
     # Upload PDF files
-    st.subheader("Upload Case Files")
+    # st.subheader("Upload Case Files")
     pdf_files = st.file_uploader("Choose files", type=["pdf"], accept_multiple_files=True)
     
     # Show uploaded files in a dropdown
