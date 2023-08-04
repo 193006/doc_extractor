@@ -295,7 +295,7 @@ except Exception:
 # Text Input
 text_dict = {}
 st.subheader("Ask Case Questions")
-query = st.text_input('your queries will go here...')
+query = st.text_input('Please ask below the additional case questions.')
 
 
 def LLM_Response():
