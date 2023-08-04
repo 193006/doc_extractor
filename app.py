@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-import random,os
+import random,os,json
 import streamlit as st
 from langchain.llms import OpenAI
 from langchain.text_splitter import RecursiveCharacterTextSplitter
@@ -280,7 +280,8 @@ if st.button("**Key Insights**"):
             context: {response}\
             Response (give me the response in the form of a python dictionary): "
         resp_dict = usellm(prompt_conv)
-        st.write(resp_dict)
+        resp_dict_obj = json.loads(resp_dict)
+        st.write(resp_dict_obj.items())
 
 # For input box outside of template
 try:
