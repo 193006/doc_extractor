@@ -114,7 +114,7 @@ st.set_page_config(page_title="SAR Usecase ~~~~", layout="wide")
 st.title("SAR Evidence Processor")
 # st.subheader('Evidence Processor')
 # Adding Sidebar
-st.sidebar.image('logo.png', width=100)
+st.sidebar.image('logo.png', width=150)
 # Navbar
 # st.sidebar.title("Navigation")
 
@@ -405,7 +405,7 @@ if query:
     except Exception:
         pass
 
-if st.button("**      Summarize      **"):
+if st.button("     Summarize      "):
     chat_history = " ".join(resp_dict_obj.values)
     memory = ConversationSummaryBufferMemory(llm=llm, max_token_limit=700)
     memory.save_context({"input": "This is the entire chat summary"}, 
