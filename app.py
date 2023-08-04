@@ -119,8 +119,8 @@ st.sidebar.image('logo.png', width=100)
 st.sidebar.title("Navigation")
 
 
-# model_name = "sentence-transformers/all-MiniLM-L6-v2"
-model_name = "hkunlp/instructor-large"
+model_name = "sentence-transformers/all-MiniLM-L6-v2"
+# model_name = "hkunlp/instructor-large"
 
 # Memory setup
 llm = ChatOpenAI(temperature=0.0)
@@ -245,9 +245,10 @@ if st.button("Submit"):
     if pdf_files is not None:
         # File handling logic
         _, docsearch = embedding_store(pdf_files)
-        queries ="Please provide the following information regarding the fraud case based on the uploaded file: give me the Victim's Name from customer info section,Existence of any reported suspect\
-        List of Merchant names, How the bank was notified, Date of bank notification, Type of Fraud, Date of the fraud occurrence\
-        Whether the disputed amount exceeded 5000 USD, Types of cards involved, Whether a police report was filed\
+        queries ="Please provide the following information regarding the fraud case based on the uploaded file: What is the victim's name,\
+        has any suspect been reported, list the merchant name, how was the bank notified, when was the bank notified, what is the fraud type,\
+        when did the fraud occur, was the disputed amount greater than 5000 USD, what type of cards are involved, was the police report filed,\
+        and based on the evidence, is this a suspicious activity- give me a summary of above questions asked and nothing more?
         Assessment of suspicious activity based on the evidence, if any"
         contexts = docsearch.similarity_search(queries, k=1) 
         prompts = f" Give a descriptive answer to the below questions as truthfully as possible as per given context only,\n\n\
@@ -263,7 +264,8 @@ if st.button("Submit"):
                 10. Was the police report filed?\n\
                 11. Based on the evidence is this a suspicious activity?\n\
               Context: {contexts}\n\
-              Response (in readable tabular with two columns where one column would carry the questions while the other column would have a descriptive answer): "
+              Response (in readable tabular format with two columns\
+              where one column would carry the questions and the other column would have a descriptive answer to the questions asked): "
               
 
         response = usellm(prompts)
