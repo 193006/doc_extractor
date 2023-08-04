@@ -275,7 +275,7 @@ if st.button("**Key Insights**"):
         st.write(response)
         # st.write(memory.load_memory_variables({}))
 
-
+# For input box outside of template
 try:
     docs, docsearch = embedding_store(pdf_files)
 except Exception:
@@ -285,6 +285,7 @@ except Exception:
 # Text Input
 st.subheader("Ask Questions")
 query = st.text_input('your queries will go here...')
+text_dict = {}
 
 def LLM_Response():
     llm_chain = LLMChain(prompt=prompt, llm=llm)
@@ -386,7 +387,9 @@ if query:
     
         #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
         response = usellm(prompt_1) #LLM_Response()
+        text_dict["query"] = response
         st.write(response)
+        st.write(text_dict.items())
 
     except Exception:
         pass
