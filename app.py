@@ -397,7 +397,7 @@ if query:
         st.write(response)
         text_dict["query"] = response
         resp_dict.update(text_dict)
-        st.write(resp_dict.items())
+        st.write(text_dict.items())
 
     except Exception:
         pass
