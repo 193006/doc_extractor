@@ -114,7 +114,7 @@ st.set_page_config(page_title="SAR Usecase ~~~~", layout="wide")
 st.title("SAR Evidence Processor")
 # st.subheader('Evidence Processor')
 # Adding Sidebar
-st.sidebar.image('logo.png', width=150)
+st.sidebar.image('logo.png', width=133)
 # Navbar
 # st.sidebar.title("Navigation")
 
@@ -293,10 +293,10 @@ except Exception:
 
 
 # Text Input
-text_dict = {}
+
 st.subheader("Ask Case Questions")
 query = st.text_input('Please ask below the additional case questions.')
-
+text_dict = {}
 
 def LLM_Response():
     llm_chain = LLMChain(prompt=prompt, llm=llm)
