@@ -165,7 +165,7 @@ if selected_option == "Case 1":
 
     # Upload PDF files
     st.subheader("Upload PDF Files")
-    pdf_files = st.file_uploader("Choose PDF files", type=["pdf"], accept_multiple_files=True)
+    global pdf_files = st.file_uploader("Choose PDF files", type=["pdf"], accept_multiple_files=True)
     
     # Show uploaded files in a dropdown
     if pdf_files:
