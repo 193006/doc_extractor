@@ -398,10 +398,10 @@ if query:
     #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
     response = usellm(prompt_1) #LLM_Response()
     text_dict[query] = response
-    resp_dict_obj.update(text_dict)
+    # resp_dict_obj.update(text_dict)
     st.write(response)
     st.write(text_dict.items())
-    st.write(resp_dict_obj.items())
+    # st.write(resp_dict_obj.items())
 
 
 
