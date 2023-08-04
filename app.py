@@ -159,13 +159,14 @@ options = ["Select an option", "Case 1", "Case 2", "Case 3", "Case 4", "Case 5"]
 selected_option = st.selectbox("Options", options)
 
 # Redirect to Merge PDFs page when "Merge PDFs" is selected
+global pdf_files = None
 if selected_option == "Case 1":
     st.header("Merge PDFs")
     st.write("Upload multiple PDF files and merge them into one PDF.")
 
     # Upload PDF files
     st.subheader("Upload PDF Files")
-    global pdf_files = st.file_uploader("Choose PDF files", type=["pdf"], accept_multiple_files=True)
+    pdf_files = st.file_uploader("Choose PDF files", type=["pdf"], accept_multiple_files=True)
     
     # Show uploaded files in a dropdown
     if pdf_files:
