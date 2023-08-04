@@ -159,7 +159,7 @@ options = ["Select an option", "Case 1", "Case 2", "Case 3", "Case 4", "Case 5"]
 selected_option = st.selectbox("Options", options)
 
 # Redirect to Merge PDFs page when "Merge PDFs" is selected
-global pdf_files = None
+global pdf_files 
 if selected_option == "Case 1":
     st.header("Merge PDFs")
     st.write("Upload multiple PDF files and merge them into one PDF.")
