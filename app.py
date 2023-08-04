@@ -280,6 +280,7 @@ if st.button("**Key Insights**"):
             context: {response}\
             Response (give me the response in the form of a python dictionary): "
         resp_dict = usellm(prompt_conv)
+        global resp_dict_obj
         resp_dict_obj = json.loads(resp_dict)
         st.write(resp_dict_obj.items())
 
