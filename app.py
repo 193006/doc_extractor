@@ -248,10 +248,11 @@ if st.button("Submit"):
         queries ="Please provide the following information regarding the possible fraud case: What is the name of the customer name,\
         has any suspect been reported, list the merchant name, how was the bank notified, when was the bank notified, what is the fraud type,\
         when did the fraud occur, was the disputed amount greater than 5000 USD, what type of cards are involved, was the police report filed,\
-        and based on the evidence, is this a suspicious activity- give me a summary of above questions asked and nothing more?\
+        and based on the evidence, is this a suspicious activity- give me a very detailed summary of above questions asked before this\
         "
         contexts = docsearch.similarity_search(queries, k=5) 
-        prompts = f" Give a descriptive answer to the below questions as truthfully as possible as per given context only,\n\n\
+        prompts = f" Give a the answer to the below questions as truthfully and in as detailed in the form of sentences \n\n
+        as possible as per given context only,\n\n\
                 1. What is the Victim's Name?\n\
                 2. Has any suspect been reported?\n\
                 3. List the Merchant name\n\
