@@ -160,11 +160,11 @@ selected_option = st.selectbox("Options", options)
 
 # Redirect to Merge PDFs page when "Merge PDFs" is selected
 if selected_option == "Case 1":
-    st.header("Merge Documents")
-    st.write("Upload multiple document files and merge them into one doc.")
+    # st.header("Merge Documents")
+    # st.write("Upload multiple document files and merge them into one doc.")
 
     # Upload PDF files
-    st.subheader("Upload Files")
+    st.subheader("Upload Case Files")
     pdf_files = st.file_uploader("Choose files", type=["pdf"], accept_multiple_files=True)
     
     # Show uploaded files in a dropdown
@@ -241,7 +241,8 @@ def embedding_store(pdf_files):
     return docs, docsearch
 
 # Submit Button
-if st.button("**Key Insights**"):
+st.subheader('Case Checklist Snapshot')
+if st.button("Key Case Insights"):
     if pdf_files is not None:
         # File handling logic
         _, docsearch = embedding_store(pdf_files)
