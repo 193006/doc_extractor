@@ -397,7 +397,7 @@ if query:
         response = usellm(prompt_1) #LLM_Response()
         st.write(response)
         text_dict[query] = response
-        st.write(text_dict.update(text_dict).items())
+        st.write(text_dict.items())
 
     except Exception:
         pass
