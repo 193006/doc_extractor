@@ -264,7 +264,7 @@ if st.button("Submit"):
                 8. Was the disputed amount greater than 5000 USD?\n\
                 9. What type of cards are involved?\n\
                 10. Was the police report filed?\n\
-                11. Based on the evidence is this a suspicious activity?\n\
+                11. Provide a detailed summary to prove if this is a suspicious activity?\n\
               Context: {contexts}\n\
               Response (in readable tabular format\
               with two columns where one column would carry the questions and the other column would have a descriptive answer to the questions asked): "
