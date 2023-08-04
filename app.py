@@ -274,7 +274,9 @@ if st.button("Submit"):
         # st.write(memory.load_memory_variables({}))
 
 
-if pdf_files is not None:
+if pdf_files is None:
+    pass
+else: 
     docs, docsearch = embedding_store(pdf_files)
 
 
