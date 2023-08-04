@@ -396,8 +396,8 @@ if query:
         #prompt = PromptTemplate(template=prompt, input_variables=["query", "context"])
         response = usellm(prompt_1) #LLM_Response()
         st.write(response)
-        tmp[query] = response
-        st.write(tmp.items())
+        text_dict[query] = response
+        st.write(text_dict.update(text_dict).items())
 
     except Exception:
         pass
