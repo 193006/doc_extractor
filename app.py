@@ -116,7 +116,7 @@ st.subheader('Evidence Processor')
 # Adding Sidebar
 st.sidebar.image('logo.png', width=100)
 # Navbar
-st.sidebar.title("Navigation")
+# st.sidebar.title("Navigation")
 
 
 model_name = "sentence-transformers/all-MiniLM-L6-v2"
@@ -150,22 +150,22 @@ hf_embeddings = embed(model_name)
 
 
 # Vizualising the files
-st.header("Welcome to the PDF Merger App")
-st.write("Use the navigation sidebar to merge PDF files.")
+# st.header("Welcome to the PDF Merger App")
+# st.write("Use the navigation sidebar to merge PDF files.")
 
 # Add a single dropdown
-st.subheader("Select an option:")
+st.subheader("Select a Case No.")
 options = ["Select an option", "Case 1", "Case 2", "Case 3", "Case 4", "Case 5"]
 selected_option = st.selectbox("Options", options)
 
 # Redirect to Merge PDFs page when "Merge PDFs" is selected
 if selected_option == "Case 1":
-    st.header("Merge PDFs")
-    st.write("Upload multiple PDF files and merge them into one PDF.")
+    st.header("Merge Documents")
+    st.write("Upload multiple document files and merge them into one doc.")
 
     # Upload PDF files
-    st.subheader("Upload PDF Files")
-    pdf_files = st.file_uploader("Choose PDF files", type=["pdf"], accept_multiple_files=True)
+    st.subheader("Upload Files")
+    pdf_files = st.file_uploader("Choose files", type=["pdf"], accept_multiple_files=True)
     
     # Show uploaded files in a dropdown
     if pdf_files:
