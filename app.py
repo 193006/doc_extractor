@@ -277,7 +277,7 @@ if st.button("**Key Insights**"):
 
         # Convert the response in dictionary
         prompt_conv = f" Convert the tabular data into a python dictionary\
-            context: {response}
+            context: {response}\
             Response (give me the response in the form of a python dictionaryo): "
         resp_dict = usellm(prompt_conv)
         st.write(resp_dict)
