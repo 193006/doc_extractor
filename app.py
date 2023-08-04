@@ -291,9 +291,10 @@ except Exception:
 
 
 # Text Input
+text_dict = {}
 st.subheader("Ask Questions")
 query = st.text_input('your queries will go here...')
-text_dict = {}
+
 
 def LLM_Response():
     llm_chain = LLMChain(prompt=prompt, llm=llm)
@@ -397,8 +398,10 @@ if query:
         response = usellm(prompt_1) #LLM_Response()
         st.write(response)
         text_dict["query"] = response
-        resp_dict_obj.update(text_dict)
-        st.write(resp_dict_obj.items())
+        st.write(text_dict.items())
+        
+        # resp_dict_obj.update(text_dict)
+        # st.write(resp_dict_obj.items())
 
     except Exception:
         pass
