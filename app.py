@@ -322,7 +322,10 @@ def embed(model_name):
     return hf_embeddings
 
 try:
-    hf_embeddings = embed(model_name) 
+    if pdf_files:
+        hf_embeddings = embed(model_name) 
+    else:
+        pass
 except NameError:
     pass
 
