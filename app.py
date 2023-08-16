@@ -321,7 +321,10 @@ def embed(model_name):
     hf_embeddings = HuggingFaceEmbeddings(model_name=model_name)
     return hf_embeddings
 
-hf_embeddings = embed(model_name) 
+if pdf_files:
+    hf_embeddings = embed(model_name) 
+else:
+    pass
 
 
 # Vizualising the files
