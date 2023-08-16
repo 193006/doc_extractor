@@ -507,7 +507,10 @@ st.markdown("---")
 
 # For input box outside of template
 try:
-    docs, docsearch = embedding_store(pdf_files)
+    if pdf_files:
+        docs, docsearch = embedding_store(pdf_files)
+    else:
+        pass
 except Exception:
     pass
 
