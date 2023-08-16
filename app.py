@@ -25,6 +25,7 @@ from langchain.callbacks import get_openai_callback
 from io import StringIO
 from io import BytesIO
 from usellm import Message, Options, UseLLM
+from creds import api_key
 #from playsound import playsound
 #from langchain.text_splitter import CharacterTextSplitter
 #from langchain.embeddings.openai import OpenAIEmbeddings
@@ -39,7 +40,10 @@ from usellm import Message, Options, UseLLM
 #from scipy.io.wavfile import write
 
 # Setting Env
-os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
+try:
+    os.environ["OPENAI_API_KEY"] = os.environ.get("OPENAI_API_KEY")
+except Exception:
+    os.environ["OPENAI_API_KEY"] = api_key
 
 
 @st.cache_data
