@@ -1,6 +1,6 @@
 api_key="rterfdgdfgdgdf"
 
-
+from nltk.util import ngrams
 def rouge_n(reference, hypothesis, n):
 
     ref_ngrams = ngrams(reference, n)
