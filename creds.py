@@ -32,6 +32,17 @@ def rouge_n_fmeasure(reference, hypothesis, n):
     return f_measure
 
 
+def count_words_and_chars(sentence):
+    # Count the number of words in the sentence
+    word_count = len(sentence.split())
+
+    # Count the number of characters in the sentence
+    char_count = len(sentence)
+
+    return word_count, char_count
+
+
+
 
 from nltk.translate.bleu_score import sentence_bleu
 def bleu_score(reference, hypothesis):
