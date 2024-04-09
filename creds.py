@@ -1,5 +1,23 @@
 api_key="rterfdgdfgdgdf"
 
+import pandas as pd
+
+def add_column_using_function(df, func, new_col_name):
+    """
+    Add a new column to the DataFrame using a provided function.
+
+    Parameters:
+    df (DataFrame): The DataFrame to add a new column to.
+    func (function): The function to apply to each row of the DataFrame.
+    new_col_name (str): The name of the new column.
+
+    Returns:
+    DataFrame: The DataFrame with the new column added.
+    """
+    df[new_col_name] = df.apply(func, axis=1)
+    return df
+
+
 from nltk.util import ngrams
 
 def rouge_n(reference, hypothesis, n):
