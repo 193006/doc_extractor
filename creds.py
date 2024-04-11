@@ -1,5 +1,17 @@
 api_key="rterfdgdfgdgdf"
 
+import re
+
+def extract_sql(text):
+    pattern = r'```(.*?)```'
+    matches = re.findall(pattern, text, re.DOTALL)
+    return matches
+
+text = """This is the final extracted data for the query asked by the user uer. This is the hive query ```SELECT * FROM Br_Premium_data``` This query may not the be most suitable one please check your attributes correctly"""
+
+print(extract_sql(text))
+
+
 import pandas as pd
 
 def add_column_using_function(df, func, new_col_name):
