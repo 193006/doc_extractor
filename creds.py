@@ -1,4 +1,41 @@
 api_key="rterfdgdfgdgdf"
+import re
+import pandas as pd
+
+def count_sql_attributes(query):
+    # Define the SQL clauses
+    clauses = ['SELECT', 'FROM', 'WHERE', 'GROUP BY', 'JOIN', 'INNER JOIN', 'OUTER JOIN', 'HAVING']
+
+    # Initialize a dictionary to store the counts
+    counts = {clause: 0 for clause in clauses}
+    attributes = {clause: [] for clause in clauses}
+
+    # Count the number of attributes in each clause
+    for clause in clauses:
+        if clause in query:
+            if clause == 'SELECT':
+                select_part = query.split('FROM')[0].split('SELECT')[1]
+                attributes['SELECT'] = [i.strip() for i in select_part.split(',') if i.strip()]
+                counts['SELECT'] = len(attributes['SELECT'])
+            elif clause in ['JOIN', 'INNER JOIN', 'OUTER JOIN']:
+                join_part = query.split('ON')[0].split(clause)[1]
+                attributes[clause] = [i.strip() for i in join_part.split(',') if i.strip()]
+                counts[clause] = len(attributes[clause])
+            else:
+                counts[clause] = 1
+
+    # Convert the counts to a DataFrame
+    df = pd.DataFrame(list(counts.items()), columns=['Attribute', 'Count'])
+    df['Attributes'] = list(attributes.values())
+    return df
+
+query = "SELECT ty.yui, ty.iuyt, ty.oiu,ru.kj FROM trise tr INNER JOIN ruise ru ON ru.id=tr.id"
+df = count_sql_attributes(query)
+print(df)
+
+
+
+
 
 import sqlparse
 import pandas as pd
