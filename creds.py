@@ -1,5 +1,35 @@
 api_key="rterfdgdfgdgdf"
 
+import sqlparse
+import pandas as pd
+
+def count_sql_attributes(query):
+    parsed = sqlparse.parse(query)[0]
+    tokens = parsed.tokens
+    attributes = ['SELECT', 'FROM', 'WHERE', 'GROUP BY', 'JOIN']
+    counts = {attr: 0 for attr in attributes}
+
+    for token in tokens:
+        if token.ttype is None and str(token) in attributes:
+            if str(token) == 'SELECT':
+                select_list = str(token.get_parent()).split('SELECT')[1].split('FROM')[0]
+                counts['SELECT'] = len([i.strip() for i in select_list.split(',') if i.strip()])
+            else:
+                counts[str(token)] += 1
+
+    df = pd.DataFrame(list(counts.items()), columns=['Attribute', 'Count'])
+    return df
+
+query = "SELECT ty.yui, ty.iuyt, ty.oiu,ru.kj FROM trise tr JOIN ruise ru ON ru.id=tr.id"
+df = count_sql_attributes(query)
+print(df)
+
+
+
+
+
+
+
 import re
 import pandas as pd
 
