@@ -38,6 +38,87 @@ def count_sql_attributes(query):
                 counts['FROM'] += 1
 
             elif clause == 'WHERE':
+                where_part = query.split('WHERE')[1].split('GROUP BY')[0].strip()
+                attributes['WHERE'].append(where_part)
+                counts['WHERE'] += 1
+            elif clause == 'GROUP BY':
+                group_by_part = query.split('GROUP BY')[1].split('HAVING')[0].strip()
+                group_by_attributes = [attr.strip() for attr in group_by_part.split(',')]
+                attributes['GROUP BY'].extend(group_by_attributes)
+                counts['GROUP BY'] += len(group_by_attributes)
+            elif clause == 'HAVING':
+                condition = re.search(r'(?i)\b' + clause + r'\b\s*(.+?)(?=\bGROUP BY\b|$)', query)
+                if condition:
+                    condition_text = condition.group(1).strip()
+                    attributes[clause].append(condition_text)
+                    counts[clause] += 1
+
+    # Extract join clauses and their attributes
+    join_types = ['INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'OUTER JOIN']
+    for join_type in join_types:
+        join_parts = re.findall(r'(?i)\b' + join_type + r'\b\s*(.*?)\bON\b', query)
+        for part in join_parts:
+            tables_with_aliases = re.findall(r'\b[a-zA-Z]+\b', part)
+            tables = [table.strip() for i, table in enumerate(tables_with_aliases) if i % 2 == 0 and table.strip()]
+            attributes[join_type].extend(tables)
+            counts[join_type] += len(tables)
+
+    # Convert the counts to a DataFrame
+    df = pd.DataFrame(list(counts.items()), columns=['Attribute', 'Count'])
+    df['Attributes'] = list(attributes.values())
+    return df
+
+query = """SELECT D.name AS DepartmentName, AVG(E.salary) AS AverageSalary, COUNT(E.id) AS NumberOfEmployees, L.location AS Location
+FROM (SELECT * FROM Department WHERE dept_id=12) D
+INNER JOIN Employee E ON D.id = E.department_id
+OUTER JOIN Location L ON D.location_id = L.id
+LEFT JOIN ROUTE R ON R.Place= E.Place
+WHERE E.hire_date > '2020-01-01' AND R.ROUTE="Houtrori"
+GROUP BY D.name, L.location
+HAVING COUNT(E.id) > 5 AND AVG(E.salary) > 50000;"""
+
+df = count_sql_attributes(query)
+print(df)
+
+#--
+import re
+import pandas as pd
+
+def count_sql_attributes(query):
+    # Define the SQL clauses and join types
+    clauses = ['SELECT', 'FROM', 'WHERE', 'GROUP BY', 'HAVING', 'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'OUTER JOIN']
+
+    # Initialize a dictionary to store the counts and attributes
+    counts = {clause: 0 for clause in clauses}
+    attributes = {clause: [] for clause in clauses}
+
+    # Count the number of attributes in each clause
+    for clause in clauses:
+        if clause in query.upper():
+            if clause == 'SELECT':
+                select_parts = re.findall(r'(?i)(?<=SELECT)(.*?)(?=FROM|$)', query, re.DOTALL)
+                for select_part in select_parts:
+                    select_attributes = [i.strip().split(' AS ')[-1] for i in select_part.split(',') if i.strip()]
+                    attributes['SELECT'].append(select_attributes)
+                    counts['SELECT'] += len(select_attributes)
+            elif clause == 'FROM':
+                from_part = re.search(r'(?i)FROM\s+(.*?)(?=\bINNER JOIN|\bLEFT JOIN|\bRIGHT JOIN|\bOUTER JOIN|\bWHERE|\bGROUP BY|\bHAVING|$)', query, re.DOTALL).group(1).strip()
+                from_subquery_match = re.search(r'(?i)\((.*?)\)', from_part)
+                if from_subquery_match:
+                    from_attributes = from_subquery_match.group(1).strip()
+                else:
+                    from_attributes = from_part.split('FROM')[-1].strip()
+
+                # Extract table alias, if present
+                from_alias_match = re.search(r'\b(\w+)\s+AS\b', from_attributes)
+                if from_alias_match:
+                    from_alias = from_alias_match.group(1)
+                    attributes['FROM'].append(from_alias)
+                else:
+                    attributes['FROM'].append(from_attributes)
+                counts['FROM'] += 1
+
+            elif clause == 'WHERE':
                 where_part = re.search(r'(?i)\bWHERE\b\s+(.*?)(?=\bGROUP BY\b|\bHAVING\b|\bORDER BY\b|\bUNION\b|$)', query, re.DOTALL).group(1).strip()
                 where_conditions = re.findall(r'\b\w+\b\s*[!=><]+\s*[\'"]?[\w\s]*[\'"]?', where_part)
                 attributes['WHERE'].extend([condition.strip() for condition in where_conditions])
