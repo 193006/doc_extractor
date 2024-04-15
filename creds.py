@@ -1,4 +1,67 @@
 api_key="rterfdgdfgdgdf"
+#---
+import re
+import pandas as pd
+ 
+def count_sql_attributes(query):
+    # Define the SQL clauses
+    clauses = ['SELECT', 'FROM', 'WHERE', 'GROUP BY', 'JOIN', 'OUTER JOIN', 'HAVING']
+ 
+    # Initialize a dictionary to store the counts and attributes
+    counts = {clause: 0 for clause in clauses}
+    attributes = {clause: [] for clause in clauses}
+ 
+    # Count the number of attributes in each clause
+    for clause in clauses:
+        if clause in query.upper():
+            if clause == 'SELECT':
+                select_part = query.split('FROM')[0].split('SELECT')[1]
+                select_attributes = [i.strip().split(' AS ')[-1] for i in select_part.split(',') if i.strip()]
+                attributes['SELECT'].extend(select_attributes)
+                counts['SELECT'] += len(select_attributes)
+            elif clause == 'FROM':
+                from_part = query.split('WHERE')[0].split('FROM')[1].split('JOIN')[0]
+                from_attributes = [i.strip().split()[0] for i in from_part.split(',') if i.strip()]
+                attributes['FROM'].extend(from_attributes)
+                counts['FROM'] += len(from_attributes)
+            elif clause in ['JOIN', 'OUTER JOIN']:
+                join_parts = re.findall(r'(?i)\b' + clause + r'\b\s*([^ON]+)', query)
+                join_attributes = [i.strip().split()[0] for part in join_parts for i in part.split(',') if i.strip()]
+                attributes['JOIN'].extend(join_attributes)
+                counts['JOIN'] += len(join_attributes)
+            elif clause == 'WHERE':
+                where_part = query.split('WHERE')[1].split('GROUP BY')[0].strip()
+                attributes['WHERE'].append(where_part)
+                counts['WHERE'] += 1
+            elif clause == 'GROUP BY':
+                group_by_part = query.split('GROUP BY')[1].split('HAVING')[0].strip()
+                group_by_attributes = [attr.strip() for attr in group_by_part.split(',')]
+                attributes['GROUP BY'].extend(group_by_attributes)
+                counts['GROUP BY'] += len(group_by_attributes)
+            elif clause == 'HAVING':
+                condition = re.search(r'(?i)\b' + clause + r'\b\s*(.+?)(?=\bGROUP BY\b|$)', query)
+                if condition:
+                    condition_text = condition.group(1).strip()
+                    attributes[clause].append(condition_text)
+                    counts[clause] += 1
+ 
+    # Convert the counts to a DataFrame
+    df = pd.DataFrame(list(counts.items()), columns=['Attribute', 'Count'])
+    df['Attributes'] = list(attributes.values())
+    return df
+ 
+query = """SELECT D.name AS DepartmentName, AVG(E.salary) AS AverageSalary, COUNT(E.id) AS NumberOfEmployees, L.location AS Location
+FROM Department D
+JOIN Employee E ON D.id = E.department_id
+OUTER JOIN Location L ON D.location_id = L.id
+WHERE E.hire_date > '2020-01-01'
+GROUP BY D.name, L.location
+HAVING COUNT(E.id) > 5 AND AVG(E.salary) > 50000;"""
+ 
+df = count_sql_attributes(query)
+print(df)
+
+#---
 import re
 import pandas as pd
 
