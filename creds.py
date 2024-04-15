@@ -2,33 +2,29 @@ api_key="rterfdgdfgdgdf"
 #---
 import re
 import pandas as pd
- 
+
 def count_sql_attributes(query):
-    # Define the SQL clauses
-    clauses = ['SELECT', 'FROM', 'WHERE', 'GROUP BY', 'JOIN', 'OUTER JOIN', 'HAVING']
- 
+    # Define the SQL clauses and join types
+    clauses = ['SELECT', 'FROM', 'WHERE', 'GROUP BY', 'HAVING', 'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'OUTER JOIN', 'WITH']
+
     # Initialize a dictionary to store the counts and attributes
     counts = {clause: 0 for clause in clauses}
     attributes = {clause: [] for clause in clauses}
- 
+
     # Count the number of attributes in each clause
     for clause in clauses:
         if clause in query.upper():
             if clause == 'SELECT':
-                select_part = query.split('FROM')[0].split('SELECT')[1]
-                select_attributes = [i.strip().split(' AS ')[-1] for i in select_part.split(',') if i.strip()]
-                attributes['SELECT'].extend(select_attributes)
-                counts['SELECT'] += len(select_attributes)
+                select_parts = re.findall(r'(?i)(?<=SELECT)(.*?)(?=FROM|$)', query, re.DOTALL)
+                for select_part in select_parts:
+                    select_attributes = [i.strip().split(' AS ')[-1] for i in select_part.split(',') if i.strip()]
+                    attributes['SELECT'].append(select_attributes)
+                    counts['SELECT'] += len(select_attributes)
             elif clause == 'FROM':
-                from_part = query.split('WHERE')[0].split('FROM')[1].split('JOIN')[0]
-                from_attributes = [i.strip().split()[0] for i in from_part.split(',') if i.strip()]
+                from_part = query.split('WHERE')[0].split('FROM')[1].strip()
+                from_attributes = [i.strip() for i in from_part.split(',') if i.strip()]
                 attributes['FROM'].extend(from_attributes)
                 counts['FROM'] += len(from_attributes)
-            elif clause in ['JOIN', 'OUTER JOIN']:
-                join_parts = re.findall(r'(?i)\b' + clause + r'\b\s*([^ON]+)', query)
-                join_attributes = [i.strip().split()[0] for part in join_parts for i in part.split(',') if i.strip()]
-                attributes['JOIN'].extend(join_attributes)
-                counts['JOIN'] += len(join_attributes)
             elif clause == 'WHERE':
                 where_part = query.split('WHERE')[1].split('GROUP BY')[0].strip()
                 attributes['WHERE'].append(where_part)
@@ -44,21 +40,52 @@ def count_sql_attributes(query):
                     condition_text = condition.group(1).strip()
                     attributes[clause].append(condition_text)
                     counts[clause] += 1
- 
+            elif clause == 'WITH':
+                cte_part = query.split('SELECT')[0].strip()
+                cte_name = re.search(r'(?i)\bAS\b\s*([^\s]+)', cte_part).group(1)
+                cte_select_parts = re.findall(r'(?i)(?<=SELECT)(.*?)(?=FROM|$)', cte_part, re.DOTALL)
+                cte_attributes = []
+                for cte_select_part in cte_select_parts:
+                    cte_select_attributes = [i.strip().split(' AS ')[-1] for i in cte_select_part.split(',') if i.strip()]
+                    cte_attributes.append(cte_select_attributes)
+                    counts['SELECT'] += len(cte_select_attributes)
+                attributes['WITH'].append({cte_name: cte_attributes})
+                counts['WITH'] += 1
+
+    # Extract join clauses and their attributes
+    join_types = ['INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'OUTER JOIN']
+    for join_type in join_types:
+        join_parts = re.findall(r'(?i)\b' + join_type + r'\b\s*(.*?)\bON\b', query)
+        for part in join_parts:
+            tables_with_aliases = re.findall(r'\b[a-zA-Z]+\b', part)
+            tables = [table.strip() for i, table in enumerate(tables_with_aliases) if i % 2 == 0 and table.strip()]
+            attributes[join_type].extend(tables)
+            counts[join_type] += len(tables)
+
     # Convert the counts to a DataFrame
     df = pd.DataFrame(list(counts.items()), columns=['Attribute', 'Count'])
     df['Attributes'] = list(attributes.values())
     return df
- 
-query = """SELECT D.name AS DepartmentName, AVG(E.salary) AS AverageSalary, COUNT(E.id) AS NumberOfEmployees, L.location AS Location
-FROM Department D
-JOIN Employee E ON D.id = E.department_id
-OUTER JOIN Location L ON D.location_id = L.id
-WHERE E.hire_date > '2020-01-01'
-GROUP BY D.name, L.location
-HAVING COUNT(E.id) > 5 AND AVG(E.salary) > 50000;"""
- 
-df = count_sql_attributes(query)
+
+query = """WITH avg_per_store AS
+  (SELECT store, AVG(amount) AS average_order
+   FROM orders
+   GROUP BY store)
+SELECT o.id, o.store, o.amount, avg.average_order AS avg_for_store
+FROM orders o
+JOIN avg_per_store avg
+ON o.store = avg.store;"""
+
+query1 = """SELECT D.name AS DepartmentName, AVG(E.salary) AS AverageSalary, COUNT(E.id) AS NumberOfEmployees, L.location AS Location
+    ...: FROM (SELECT * FROM Department WHERE dept_id=32) D
+    ...: INNER JOIN Employee E ON D.id = E.department_id
+    ...: OUTER JOIN Location L ON D.location_id = L.id
+         LEFT JOIN ROUTE R ON R.Place= E.Place
+    ...: WHERE E.hire_date > '2020-01-01' AND R.ROUTE="Houtrori"
+    ...: GROUP BY D.name, L.location
+    ...: HAVING COUNT(E.id) > 5 AND AVG(E.salary) > 50000;"""
+
+df = count_sql_attributes(query1)
 print(df)
 
 #---
