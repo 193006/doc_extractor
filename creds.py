@@ -1,4 +1,98 @@
 api_key="rterfdgdfgdgdf"
+## 16/04/25 19:50
+import re
+import pandas as pd
+
+def count_sql_attributes(query):
+    # Define the SQL clauses and join types
+    clauses = ['SELECT', 'FROM', 'WHERE', 'GROUP BY', 'HAVING', 'JOIN', 'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'OUTER JOIN']
+
+    # Initialize a dictionary to store the counts and attributes
+    counts = {clause: 0 for clause in clauses}
+    attributes = {clause: [] for clause in clauses}
+
+    # Convert query to uppercase for case-insensitive matching
+    query_upper = query.upper()
+
+    # Count the number of attributes in each clause
+    for clause in clauses:
+        if clause in query_upper:
+            if clause == 'SELECT':
+                select_parts = re.findall(r'(?i)(?<=SELECT)(.*?)(?=FROM|$)', query, re.DOTALL)
+                for select_part in select_parts:
+                    select_attributes = [i.strip().split(' AS ')[-1] for i in select_part.split(',') if i.strip()]
+                    attributes['SELECT'].append(select_attributes)
+                    counts['SELECT'] += len(select_attributes)
+            elif clause == 'FROM':
+                from_part = re.search(r'(?i)FROM\s+(.*?)(?=\bWHERE|\bGROUP BY|\bHAVING|\bORDER BY|\bUNION|\b$)', query, re.DOTALL).group(1).strip()
+                from_attributes = from_part.split()[0]
+                attributes['FROM'].append(from_attributes)
+                counts['FROM'] += 1
+            elif clause == 'WHERE':
+                where_part = re.search(r'(?i)\bWHERE\b\s+(.*?)(?=\bGROUP BY\b|\bHAVING\b|\bORDER BY\b|\bUNION\b|$)', query, re.DOTALL)
+                if where_part:
+                    where_conditions = where_part.group(1).strip().split('AND')
+                    where_conditions = [condition.strip() for condition in where_conditions]
+                    attributes['WHERE'].extend(where_conditions)
+                    counts['WHERE'] += len(where_conditions)
+            elif clause == 'GROUP BY':
+                group_by_part = re.search(r'(?i)\bGROUP BY\b\s+(.*?)(?=\bHAVING\b|$)', query, re.DOTALL)
+                if group_by_part:
+                    group_by_attributes = [attr.strip() for attr in group_by_part.group(1).split(',')]
+                    attributes['GROUP BY'].extend(group_by_attributes)
+                    counts['GROUP BY'] += len(group_by_attributes)
+            elif clause == 'HAVING':
+                having_part = re.search(r'(?i)\bHAVING\b\s+(.*?)(?=\bORDER BY\b|\bUNION\b|$)', query, re.DOTALL)
+                if having_part:
+                    having_conditions = having_part.group(1).strip().split('AND')
+                    having_conditions = [condition.strip() for condition in having_conditions]
+                    attributes['HAVING'].extend(having_conditions)
+                    counts['HAVING'] += len(having_conditions)
+            elif clause in ['JOIN', 'INNER JOIN', 'LEFT JOIN', 'RIGHT JOIN', 'OUTER JOIN']:
+                join_parts = re.findall(r'(?i)\b' + clause + r'\b\s+(.*?)\bON\b', query, re.DOTALL)
+                for part in join_parts:
+                    tables_with_aliases = re.findall(r'(\w+\.\w+)', part)
+                    tables = [table.strip() for table in tables_with_aliases]
+                    attributes['JOIN'].extend(tables)
+                    counts['JOIN'] += len(tables)
+
+    # Convert the counts to a DataFrame
+    df = pd.DataFrame(list(counts.items()), columns=['Attribute', 'Count'])
+    df['Attributes'] = list(attributes.values())
+    # Remove duplicates from the 'JOIN' attribute
+    df.loc[df['Attribute'] == 'JOIN', 'Attributes'] = df.loc[df['Attribute'] == 'JOIN', 'Attributes'].apply(lambda x: list(set(x)))
+    df.loc[df['Attribute'] == 'JOIN', 'Count'] = len(df.loc[df['Attribute'] == 'JOIN', 'Attributes'].values[0])
+    return df
+
+
+query_lc = """select d.name as departmentname, avg(e.salary) as averagesalary, count(e.id) as numberofemployees, l.location as location
+from ascend.department d
+join Ascend.employee e on d.id = e.department_id
+outer join Ascend.location l on d.location_id = l.id
+left join Ascend.route r on r.place= e.place
+where e.hire_date > '2020-01-01' and r.route="houtrori"
+group by d.name, l.location
+having count(e.id) > 5 and avg(e.salary) > 50000;"""
+
+df_lc = count_sql_attributes(query_lc)
+print(df_lc)
+
+print("--------------")
+
+query_uc = """SELECT D.name AS DepartmentName, AVG(E.salary) AS AverageSalary, COUNT(E.id) AS NumberOfEmployees, L.location AS Location
+FROM ascend.Department D
+INNER JOIN Ascend.Employee E ON D.id = E.department_id
+OUTER JOIN Ascend.Location L ON D.location_id = L.id
+LEFT JOIN Ascend.ROUTE R ON R.Place= E.Place
+WHERE E.hire_date > '2020-01-01' AND R.ROUTE="Houtrori"
+GROUP BY D.name, L.location
+HAVING COUNT(E.id) > 5 AND AVG(E.salary) > 50000;"""
+
+df_uc = count_sql_attributes(query_uc)
+print(df_uc)
+
+
+#---
 # 16/04/25 17:53
 import re
 import pandas as pd
