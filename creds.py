@@ -1,4 +1,27 @@
 api_key="rterfdgdfgdgdf"
+
+from rouge_score import rouge_scorer
+
+def calculate_rouge_scores(reference, hypothesis):
+    scorer = rouge_scorer.RougeScorer(['rouge1', 'rouge2', 'rougeL', 'rougeLsum'], use_stemmer=True)
+    scores = scorer.score(' '.join(reference), ' '.join(hypothesis))
+    
+    rouge1 = scores['rouge1'].fmeasure
+    rouge2 = scores['rouge2'].fmeasure
+    rougeL = scores['rougeL'].fmeasure
+    rougeLsum = scores['rougeLsum'].fmeasure
+    
+    return rouge1, rouge2, rougeL, rougeLsum
+
+# Example usage:
+reference = ["The cat sat on the mat"]
+hypothesis = ["The cat sat on the rug"]
+rouge1, rouge2, rougeL, rougeLsum = calculate_rouge_scores(reference, hypothesis)
+print("ROUGE-1:", rouge1)
+print("ROUGE-2:", rouge2)
+print("ROUGE-L:", rougeL)
+print("ROUGE-Lsum:", rougeLsum)
+
 ## 16/04/25 19:50
 import re
 import pandas as pd
