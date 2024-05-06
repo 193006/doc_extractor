@@ -1,3 +1,50 @@
+1. **Patrons** provides an automated evaluation platform that detects Large Language Model (LLM) mistakes at scale⁶. It offers services like LLM Failure Monitoring & Observability, and Test Suite Generation⁷⁸.
+2. **Brain trust Data** offers a stack for building AI products, including LLM applications. It provides tools for scoring model performance, logging, and visualizing outputs¹⁴.
+3. **Langsmith** offers an evaluation function that takes in a set of inputs and outputs from your chain, agent, or model, and returns a score (or multiple scores). It allows you to run evaluations on your application via Datasets²⁸.
+4. **Galileo** provides tools for GenAI evaluation, experimentation, and observability. It offers features like logging runs, visualizing components, and facilitating collaboration[^10^].
+5. **Databricks RAG studio** provides a suite of RAG tools to help users build high-quality, production LLM apps using their enterprise data²⁴.
+6. **DeepEval** is an open-source evaluation framework for LLMs. It evaluates LLM outputs based on metrics such as G-Eval, hallucination, answer relevancy, RAGAS, etc¹.
+7. **Truelens** is a software tool that helps you to objectively measure the quality and effectiveness of your LLM-based applications using feedback functions¹⁹.
+
+Source: Conversation with Bing, 5/6/2024
+(1) Patronus AI | Automated AI Evaluation. https://www.patronus.ai/.
+(2) Patronus AI | Suite. https://www.patronus.ai/product/features.
+(3) Patronus AI - LLM benchmarking and evaluation tool - PC Guide. https://www.pcguide.com/ai/patronus-ai/.
+(4) BrainTrust Data. https://www.braintrustdata.com/.
+(5) Evaluation Overview | ️ ️ LangSmith. https://docs.smith.langchain.com/evaluation.
+(6) The Generative AI Evaluation Company - Galileo. https://www.rungalileo.io/.
+(7) Creating High Quality RAG Applications with Databricks. https://www.databricks.com/blog/building-high-quality-rag-applications-databricks.
+(8) GitHub - confident-ai/deepeval: The LLM Evaluation Framework. https://github.com/confident-ai/deepeval.
+(9) TruLens for LLMs. https://www.trulens.org/.
+(10) Quick Introduction | DeepEval - The Open-Source LLM Evaluation Framework. https://docs.confident-ai.com/docs/getting-started.
+(11) Introduction | DeepEval - The Open-Source LLM Evaluation Framework. https://docs.confident-ai.com/docs/confident-ai-introduction.
+(12) GitHub - AI-App/DeepEval: The Evaluation Framework for LLMs. https://github.com/AI-App/DeepEval.
+(13) DeepEval: Simplifying Evaluation Of Language Learning Models (LLMs .... https://www.ai-summary.com/deepeval-simplifying-evaluation-of-language-learning-models-llms/.
+(14) Patronus AI Introduces Groundbreaking LLM Evaluation Tool for Regulated .... https://robots.net/news/patronus-ai-introduces-groundbreaking-llm-evaluation-tool-for-regulated-industries/.
+(15) A Metrics-First Approach to LLM Evaluation - Galileo. https://www.rungalileo.io/blog/metrics-first-approach-to-llm-evaluation.
+(16) Galileo Evaluate® : Rapid Evaluation of Prompts, Chains and RAG systems .... https://docs.rungalileo.io/galileo/gen-ai-studio-products/galileo-evaluate.
+(17) Galileo - Accelerate unstructured data evaluation and experimentation .... https://www.arfi.ai/tool/galileo.
+(18) Getting started with Braintrust — Braintrust. https://www.braintrustdata.com/docs.
+(19) GitHub - braintrustdata/autoevals: AutoEvals is a tool for quickly and .... https://github.com/braintrustdata/autoevals.
+(20) Braintrust Data offers enterprises faster way to evaluate LLMs. https://venturebeat.com/ai/braintrust-data-wants-to-make-enterprise-ai-better-with-faster-evaluations/.
+(21) autoevals — Braintrust. https://www.braintrustdata.com/docs/autoevals/python.
+(22) truera/trulens: Evaluation and Tracking for LLM Experiments - GitHub. https://github.com/truera/trulens.
+(23) Build and Evaluate LLM Apps with LlamaIndex and TruLens - TruEra - Medium. https://truera.com/build-and-evaluate-llm-apps-with-llamaindex-and-trulens/.
+(24) Building Better LLM Apps: Evaluating and Tracking LLM Experiments with .... https://www.toolify.ai/ai-news/building-better-llm-apps-evaluating-and-tracking-llm-experiments-with-trulens-2209348.
+(25) Best Practices for LLM Evaluation of RAG Applications - Databricks. https://www.databricks.com/blog/LLM-auto-eval-best-practices-RAG.
+(26) Best Practices for LLM Evaluation of RAG Applications - Databricks. https://www.databricks.com/blog/announcing-mlflow-28-llm-judge-metrics-and-best-practices-llm-evaluation-rag-applications-part.
+(27) LLM Chatbot With Retrieval Augmented Generation (RAG) and DBRX. https://notebooks.databricks.com/demos/llm-rag-chatbot/index.html.
+(28) Databricks creates suite of RAG tools for LLM app production. https://www.kmworld.com/Articles/ReadArticle.aspx?ArticleID=161803.
+(29) LangSmith Evaluation Deep Dive | ️ ️ LangSmith. https://docs.smith.langchain.com/cookbook/introduction.
+(30) Evaluate and trace with LangSmith to Master LLM optimization. https://datasciencedojo.com/blog/llm-evaluation-with-langsmith/.
+(31) Langsmith for LLM Application Evaluation & Monitoring. https://livingdatalab.com/posts/2023-08-16-langsmith-for-llm-application-evaluation.html.
+(32) Using LangSmith to test LLMs and AI applications. https://blog.logrocket.com/langsmith-test-llms-ai-applications/.
+(33) undefined. https://www.databricks.com/blog/introducing-dbrx-new-state-art-open-llm.
+(34) undefined. https://docs.smith.langchain.com/evaluation/quickstart.
+(35) undefined. https://docs.smith.langchain.com/evaluation/faq/manage-datasets.
+(36) undefined. https://www.trulens.org/trulens_eval/getting_started/core_concepts/.
+(37) undefined. https://github.com/truera/trulens@BRANCH.
+
 api_key="rterfdgdfgdgdf"
 
 from rouge_score import rouge_scorer
