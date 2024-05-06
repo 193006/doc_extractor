@@ -1,4 +1,83 @@
-Certainly! Here's a brief overview of TruEra with reference links:
+I see, thank you for the clarification. Here's a more detailed summary of the LLM evaluation tools/packages mentioned:
+
+- **Patrons**: 
+  - **Integration**: Not specified in the provided context. However, as an automated platform, it might be relatively easy to integrate with a chatbot²³.
+  - **Customization**: Offers services like monitoring and test suite generation, but it's not clear if it allows for custom metric creation²³.
+  - **UI**: Not specified in the provided context.
+  - **Base Evaluation LLM**: Not specified in the provided context.
+
+- **Brain trust Data**: 
+  - **Integration**: Provides a stack for AI product development, which should facilitate integration with a chatbot¹⁹.
+  - **Customization**: Includes tools for scoring, logging, and visualization, but it's not clear if it allows for custom metric creation¹⁹.
+  - **UI**: Not specified in the provided context.
+  - **Base Evaluation LLM**: Not specified in the provided context.
+
+- **Langsmith**: 
+  - **Integration**: Offers an evaluation function for inputs and outputs, which should be integrable with a chatbot¹.
+  - **Customization**: Allows evaluations via datasets¹. It also allows you to create your own custom metrics that are automatically integrated with LangSmith's ecosystem⁵.
+  - **UI**: LangSmith provides a UI where you can view all the experiments associated with your dataset¹.
+  - **Base Evaluation LLM**: Not specified in the provided context.
+
+- **Galileo**: 
+  - **Integration**: Provides tools for GenAI evaluation and experimentation, which should be integrable with a chatbot¹⁵.
+  - **Customization**: Features for collaboration and component visualization¹⁵. It's not clear if it allows for custom metric creation.
+  - **UI**: Not specified in the provided context.
+  - **Base Evaluation LLM**: Not specified in the provided context.
+
+- **Databricks RAG studio**: 
+  - **Integration**: Provides a suite of RAG tools for LLM app development, which should facilitate integration with a chatbot[^10^].
+  - **Customization**: Utilizes enterprise data for high-quality apps[^10^]. It's not clear if it allows for custom metric creation.
+  - **UI**: Not specified in the provided context.
+  - **Base Evaluation LLM**: Not specified in the provided context.
+
+- **DeepEval**: 
+  - **Integration**: As an open-source framework, it should be relatively easy to integrate with a chatbot⁵.
+  - **Customization**: Evaluates based on various metrics⁵. It also allows you to create your own custom metrics that are automatically integrated with DeepEval's ecosystem⁵.
+  - **UI**: Not specified in the provided context.
+  - **Base Evaluation LLM**: Not specified in the provided context.
+
+- **Truelens**: 
+  - **Integration**: Software tool for measuring LLM application quality, which should be integrable with a chatbot¹².
+  - **Customization**: Uses feedback functions for objective measurement¹². It's not clear if it allows for custom metric creation.
+  - **UI**: Not specified in the provided context.
+  - **Base Evaluation LLM**: Not specified in the provided context.
+
+For detailed information on integration and customization options, as well as whether they have a UI or a base LLM they consider, it would be best to refer to the official documentation or contact the providers directly. If you need further assistance, feel free to ask!
+
+Source: Conversation with Bing, 5/6/2024
+(1) LMSYS Chatbot Arena: Live and Community-Driven LLM Evaluation. https://lmsys.org/blog/2024-03-01-policy/?ref=upstract.com.
+(2) Customizing and fine-tuning LLMs: What you need to know. https://github.blog/2024-02-28-customizing-and-fine-tuning-llms-what-you-need-to-know/.
+(3) Evaluation Overview | ️ ️ LangSmith. https://docs.smith.langchain.com/evaluation.
+(4) GitHub - confident-ai/deepeval: The LLM Evaluation Framework. https://github.com/confident-ai/deepeval.
+(5) Custom LLM: Galileo & Custom LLM APIs / Fine Tuned LLMs. https://docs.rungalileo.io/galileo/gen-ai-studio-products/galileo-evaluate/custom-llm-galileo-and-custom-llm-apis-fine-tuned-llms.
+(6) Deploy Your LLM Chatbot With Retrieval Augmented ... - Databricks. https://www.databricks.com/resources/demos/tutorials/data-science-and-ai/lakehouse-ai-deploy-your-llm-chatbot.
+(7) truera/trulens: Evaluation and Tracking for LLM Experiments - GitHub. https://github.com/truera/trulens.
+(8) Evaluate a Conversational Chat Bot | ️ ️ LangSmith. https://docs.smith.langchain.com/cookbook/testing-examples/chat-single-turn.
+(9) Evaluation | ️ LangChain. https://python.langchain.com/docs/guides/productionization/evaluation/.
+(10) LangSmith: LangChain's LLM Debugger, Evaluator, & Monitoring Tool .... https://wandb.ai/vincenttu/blog_posts/reports/LangSmith-LangChain-s-LLM-Debugger-Evaluator-Monitoring-Tool--Vmlldzo0NzU4MTQ0.
+(11) GitHub - AI-App/DeepEval: The Evaluation Framework for LLMs. https://github.com/AI-App/DeepEval.
+(12) Metrics | DeepEval - The Open-Source LLM Evaluation Framework. https://docs.confident-ai.com/docs/metrics-introduction.
+(13) LLM Chatbot With Retrieval Augmented Generation (RAG) and DBRX. https://notebooks.databricks.com/demos/llm-rag-chatbot/index.html.
+(14) Best Practices for LLM Evaluation of RAG Applications - Databricks. https://www.databricks.com/blog/LLM-auto-eval-best-practices-RAG.
+(15) Deploy LLM Chatbots with RAG and Databricks Vector Search. https://www.databricks.com/resources/demos/tours/deploy-llm-chatbots-rag-and-databricks-ai-vector-search.
+(16) Evaluate and Improve your Chatbots with TruLens tutorial. https://lablab.ai/t/trulens-tutorial-langchain-chatbot.
+(17) Evaluate and Track your LLM Experiments: Introducing TruLens. https://medium.com/trulens/evaluate-and-track-your-llm-experiments-introducing-trulens-86028fe9b59a.
+(18) A Metrics-First Approach to LLM Evaluation - Galileo. https://www.rungalileo.io/blog/metrics-first-approach-to-llm-evaluation.
+(19) Building a Custom Language Model (LLM) for Chatbots: A ... - Medium. https://medium.com/@gautam_vanani/building-a-custom-language-model-llm-for-chatbots-a-practical-guide-9e4a0c532930.
+(20) LLMChat - GitHub. https://github.com/c0sogi/LLMChat.
+(21) Run evaluations — Braintrust. https://www.braintrustdata.com/docs/guides/evals.
+(22) Build a Talk-to-your-data chatbot using openai LLM, LangChain, and .... https://dev.to/emmakodes_/how-to-build-a-talk-to-your-data-chatbot-using-openai-llm-langchain-and-streamlit-27po.
+(23) Creating a Private Chatbot Knowledge Base with LLMs and RAGs. https://nexocode.com/blog/posts/integrating-llms-rags-for-knowledge-base-chatbot/.
+(24) undefined. https://api.smith.langchain.com.
+(25) undefined. https://your.galileo.console.url.
+(26) undefined. https://your.galileo.console.url/%29.
+(27) undefined. https://your.galileo.console.url/foo/bar/.
+(28) undefined. https://www.trulens.org/trulens_eval/getting_started/core_concepts/.
+(29) undefined. https://github.com/truera/trulens@BRANCH.
+
+
+
+
 
 - **AI Quality Platform**: TruEra provides an AI Quality and Observability Platform to analyze and improve AI/ML modeling projects¹.
 - **Monitoring & Diagnostics**: It offers monitoring for production models with real-time alerts and diagnostics for model development and root cause analysis¹.
